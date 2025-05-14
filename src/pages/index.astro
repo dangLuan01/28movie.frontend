@@ -8,9 +8,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	<div class="home home--static">
 		<div class="home__carousel owl-carousel" id="flixtv-hero">
 		<div class="home__card">
-			<a href="details.html">
+			<a href="/movie/i-love-you">
 				<!-- <img src="img/home/1.jpg" alt="" /> -->
-				<Image src="/img/home/1.jpg" alt="Movie 1"  width="300" height="330" />
+				<Image src={import('../images/home/1.jpg')} alt="Movie 1"/>
 			</a>
 			<div>
 			<h2>Money Plane</h2>
