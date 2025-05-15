@@ -1,0 +1,4 @@
+---
+const { src, poster, id = "player"} = Astro.props;
+---
+<video controls playsinline poster={poster} id={id} src={src}></video>
