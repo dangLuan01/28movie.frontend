@@ -371,13 +371,18 @@ $(document).ready(function () {
   function initializePlayer() {
     if ($("#player").length) {
       const player = new Plyr("#player");
+      if (Hls.isSupported()) {
+        var video = document.getElementById('player');
+        var hls   = new Hls();
+        hls.loadSource(video.src);
+        hls.attachMedia(video);
+      }
     } else {
       return false;
     }
     return false;
   }
   $(window).on("load", initializePlayer());
-
   /*==============================
 	Modal
 	==============================*/
@@ -434,32 +439,32 @@ $(document).ready(function () {
   /*==============================
 	Scrollbar
 	==============================*/
-  var Scrollbar = window.Scrollbar;
+  // var Scrollbar = window.Scrollbar;
 
-  if ($(".header__nav-menu--scroll").length) {
-    Scrollbar.init(document.querySelector(".header__nav-menu--scroll"), {
-      damping: 0.1,
-      renderByPixels: true,
-      alwaysShowTracks: true,
-      continuousScrolling: true,
-    });
-  }
+  // if ($(".header__nav-menu--scroll").length) {
+  //   Scrollbar.init(document.querySelector(".header__nav-menu--scroll"), {
+  //     damping: 0.1,
+  //     renderByPixels: true,
+  //     alwaysShowTracks: true,
+  //     continuousScrolling: true,
+  //   });
+  // }
 
-  if ($(".dashbox__table-wrap--1").length) {
-    Scrollbar.init(document.querySelector(".dashbox__table-wrap--1"), {
-      damping: 0.1,
-      renderByPixels: true,
-      alwaysShowTracks: true,
-      continuousScrolling: true,
-    });
-  }
+  // if ($(".dashbox__table-wrap--1").length) {
+  //   Scrollbar.init(document.querySelector(".dashbox__table-wrap--1"), {
+  //     damping: 0.1,
+  //     renderByPixels: true,
+  //     alwaysShowTracks: true,
+  //     continuousScrolling: true,
+  //   });
+  // }
 
-  if ($(".dashbox__table-wrap--2").length) {
-    Scrollbar.init(document.querySelector(".dashbox__table-wrap--2"), {
-      damping: 0.1,
-      renderByPixels: true,
-      alwaysShowTracks: true,
-      continuousScrolling: true,
-    });
-  }
+  // if ($(".dashbox__table-wrap--2").length) {
+  //   Scrollbar.init(document.querySelector(".dashbox__table-wrap--2"), {
+  //     damping: 0.1,
+  //     renderByPixels: true,
+  //     alwaysShowTracks: true,
+  //     continuousScrolling: true,
+  //   });
+  // }
 });

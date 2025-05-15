@@ -1,7 +1,9 @@
 ---
-import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-
+const movie = {
+  title: "Chân Tướng Trong Đường Nét",
+  image: "https://wsrv.nl/?url=https://img.ophim.live/uploads/movies/chan-tuong-trong-duong-net-poster.jpg&w=414&h=330&fit=cover&format=webp&quality=80&output=webp",
+};
 ---
 <!-- home -->
  <BaseLayout title="28MOVIE" description="Home page">
@@ -9,8 +11,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		<div class="home__carousel owl-carousel" id="flixtv-hero">
 		<div class="home__card">
 			<a href="/movie/i-love-you">
-				<!-- <img src="img/home/1.jpg" alt="" /> -->
-				<Image src={import('../images/home/1.jpg')} alt="Movie 1"/>
+				<img src={movie.image} alt={movie.title} loading="lazy"/>
 			</a>
 			<div>
 			<h2>Money Plane</h2>
