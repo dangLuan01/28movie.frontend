@@ -1,11 +1,12 @@
 ---
+import { ClientRouter } from "astro:transitions";
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 const { title } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" transition:animate="none">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -14,16 +15,15 @@ const { title } = Astro.props;
 		<link rel="apple-touch-icon" href="icon/favicon-32x32.png" /> -->
 		<title>{title ? title : '28Movie'}</title>
         {Astro.props.meta}
+		<ClientRouter />
 	</head>
 	<body>
 		<!-- header (relative style) -->
 		<Header />
 		<!-- end header -->
-
         <!-- main content -->
-        <slot />
+		<slot />
         <!-- end main content --> 
-
         <!-- footer -->
 		<Footer />
         <!-- end footer -->
@@ -33,10 +33,10 @@ const { title } = Astro.props;
 		<script src="/js/owl.carousel.min.js" type="module"></script>
 		<script src="/js/slider-radio.js" type="module"></script>
 		<script src="/js/select2.min.js" type="module"></script>
-		<!-- <script src="/js/smooth-scrollbar.js" type="module"></script> -->
 		<script src="/js/jquery.magnific-popup.min.js" type="module"></script>
 		<script src="/js/plyr.min.js" type="module"></script>
 		<script src="/js/hls.min.js" type="module"></script>
-		<script src="/js/main.js" type="module"></script>
+		<script>import "../styles/js/main.js";</script>
+		
 	</body>
 </html>
