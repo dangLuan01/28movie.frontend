@@ -22,7 +22,10 @@ const { title } = Astro.props;
 		<Header />
 		<!-- end header -->
         <!-- main content -->
-		<slot />
+		<main transition:animate="slide">
+			<slot />
+		</main>
+		
         <!-- end main content --> 
         <!-- footer -->
 		<Footer />
