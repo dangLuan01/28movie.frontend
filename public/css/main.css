@@ -1827,7 +1827,14 @@ body::-webkit-scrollbar-thumb {
   position: relative;
   z-index: 1;
   transition: 0.5s;
+  height: 270px;
 }
+@media (max-width: 767px) {
+  .card__cover img {
+    height: 250px;
+  }
+}
+
 .card__cover svg {
   position: absolute;
   display: block;
