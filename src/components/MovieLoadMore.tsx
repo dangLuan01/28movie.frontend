@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 type Movie = {
   slug: string;
   image: { poster: string };
@@ -45,7 +45,7 @@ export default function MovieList() {
             {movies.map((movie) => (
             <div key={movie.slug} className="col-6 col-sm-4 col-lg-3 col-xl-2">
                 <div className="card">
-                    <a href={"movie/" + movie.slug} className="card__cover">
+                    <a href={movie.type == 'single' ? 'movie/' + movie.slug : 'tv-series/' + movie.slug} className="card__cover">
                         <img src={ "https://wsrv.nl/?url=" + movie.image.poster + "&format=webp&quality=50&output=webp"} alt={movie.slug} />
                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M11 1C16.5228 1 21 5.47716 21 11C21 16.5228 16.5228 21 11 21C5.47716 21 1 16.5228 1 11C1 5.47716 5.47716 1 11 1Z"
@@ -67,13 +67,15 @@ export default function MovieList() {
                     {movie.rating}
                     </span>
                     <h3 className="card__title">
-                        <a href={"movie/" + movie.slug}>{movie.name}</a>
+                        <a href={movie.type == 'single' ? 'movie/' + movie.slug : 'tv-series/' + movie.slug}>
+                            {movie.name}
+                        </a>
                     </h3>
-                <ul className="card__list">
-                    <li>Free</li>
-                    <li>Action</li>
-                    <li>{movie.release_date}</li>
-                </ul>
+                    <ul className="card__list">
+                        <li>Free</li>
+                        <li>Action</li>
+                        <li>{movie.release_date}</li>
+                    </ul>
                 </div>
             </div>
             ))}

@@ -20,7 +20,7 @@ const header = await fetch('http://localhost:8080/api/v1/category').then((respon
 			<ul class="header__nav">
 				{header.map((item: { slug: any; name: unknown; }) => (
 					<li class="header__nav-item">
-						<a class="header__nav-link" href={`${item.slug}`} role="button" id="dropdownMenu2"
+						<a class="header__nav-link" href={item.slug} role="button" id="dropdownMenu2"
 						aria-haspopup="true" aria-expanded="false">{item.name}
 						{/* <svg width="4" height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path
