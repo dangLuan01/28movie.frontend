@@ -3,13 +3,14 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Image } from 'astro:assets';
 import avatar from "../../images/avatar.svg";
-import Video from "../../components/Video.astro";
+import Video from "../../components/Video";
 const { slug } = Astro.params;
 const imageSrc = "https://wsrv.nl/?url="
 // Fetch movie details based on slug
 const movie = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
   method: 'GET',
 }).then((response) => response.json());
+
 ---
 <BaseLayout title={movie.name} description="Movie page">
     <!-- details -->
@@ -49,29 +50,7 @@ const movie = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
               <!-- end article content -->
             </div>
             <!-- video player -->
-            <div class="col-12 col-xl-8">
-                <Video src={movie.servers[0].episodes[0].hls} poster={imageSrc + movie.image.thumb}/>  
-                <div class="article__actions article__actions--details">
-                    <div class="article__download">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M21,14a1,1,0,0,0-1,1v4a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V15a1,1,0,0,0-2,0v4a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V15A1,1,0,0,0,21,14Zm-9.71,1.71a1,1,0,0,0,.33.21.94.94,0,0,0,.76,0,1,1,0,0,0,.33-.21l4-4a1,1,0,0,0-1.42-1.42L13,12.59V3a1,1,0,0,0-2,0v9.59l-2.29-2.3a1,1,0,1,0-1.42,1.42Z"/>
-                      </svg>
-                      Server:
-                      <a href="#sv1">Asia</a>
-                      <a href="#sv2">Us</a>
-                    </div>
-
-                    <!-- add .active class -->
-                    <button class="article__favorites" type="button">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                          d="M16,2H8A3,3,0,0,0,5,5V21a1,1,0,0,0,.5.87,1,1,0,0,0,1,0L12,18.69l5.5,3.18A1,1,0,0,0,18,22a1,1,0,0,0,.5-.13A1,1,0,0,0,19,21V5A3,3,0,0,0,16,2Zm1,17.27-4.5-2.6a1,1,0,0,0-1,0L7,19.27V5A1,1,0,0,1,8,4h8a1,1,0,0,1,1,1Z"
-                        ></path>
-                      </svg>
-                      Add to favorites
-                    </button>
-                </div>
-            </div>
+           <Video movie={movie} client:load />  
             <!-- end video player -->
 
             <div class="col-12 col-xl-8">
@@ -81,7 +60,6 @@ const movie = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
                 {movie.genres.map((genre:any) => (
                   <a href={`genre/${genre.slug}`} class="categories__item">{genre.name}</a>
                 ))}
-               
               </div>
               <!-- end categories -->
 

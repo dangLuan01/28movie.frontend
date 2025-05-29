@@ -368,21 +368,21 @@ $(document).ready(function () {
   /*==============================
 	Player
 	==============================*/
-  function initializePlayer() {
-    if ($("#player").length) {
-      const player = new Plyr("#player");
-      if (Hls.isSupported()) {
-        var video = document.getElementById('player');
-        var hls   = new Hls();
-        hls.loadSource(video.src);
-        hls.attachMedia(video);
-      }
-    } else {
-      return false;
-    }
-    return false;
-  }
-  $(window).on("load", initializePlayer());
+  // function initializePlayer() {
+  //   if ($("#player").length) {
+  //     const player = new Plyr("#player");
+  //     if (Hls.isSupported()) {
+  //       var video = document.getElementById('player');
+  //       var hls   = new Hls();
+  //       hls.loadSource(video.src);
+  //       hls.attachMedia(video);
+  //     }
+  //   } else {
+  //     return false;
+  //   }
+  //   return false;
+  // }
+  //$(window).on("load", initializePlayer());
   /*==============================
 	Modal
 	==============================*/
