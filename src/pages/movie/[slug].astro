@@ -1,16 +1,14 @@
 ---
-//export const prerender = false;
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Image } from 'astro:assets';
 import avatar from "../../images/avatar.svg";
-import Video from "../../components/Video";
+import VideoPlayer from "../../components/VideoPlayer";
 const { slug } = Astro.params;
 const imageSrc = "https://wsrv.nl/?url="
 // Fetch movie details based on slug
 const movie = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
   method: 'GET',
 }).then((response) => response.json());
-
 ---
 <BaseLayout title={movie.name} description="Movie page">
     <!-- details -->
@@ -50,9 +48,8 @@ const movie = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
               <!-- end article content -->
             </div>
             <!-- video player -->
-           <Video movie={movie} client:load />  
+           <VideoPlayer client:only="react" servers={movie.servers} />
             <!-- end video player -->
-
             <div class="col-12 col-xl-8">
               <!-- categories -->
               <div class="categories">
@@ -62,7 +59,6 @@ const movie = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
                 ))}
               </div>
               <!-- end categories -->
-
               <!-- share -->
               <div class="share">
                 <h3 class="share__title">Share</h3>

@@ -6,17 +6,16 @@ import MovieList from '../components/MovieLoadMore.jsx';
 const hot = await fetch('http://localhost:8080/api/v1/movie-hot',{
 	method: 'GET',
 }).then((response) => response.json());
-const movies = await fetch('http://localhost:8080/api/v1/movies?page_size=24',{
-	method: 'GET',
-}).then((response) => response.json());
+// const movies = await fetch('http://localhost:8080/api/v1/movies?page_size=24',{
+// 	method: 'GET',
+// }).then((response) => response.json());
 
 ---
 <!-- home -->
  <BaseLayout title="28MOVIE" description="Home page">
 	<div class="home home--static">
 		<div class="home__carousel owl-carousel" id="flixtv-hero">
-			{hot.map((movie: { slug: string; image: { thumb: string; }; name: unknown; release_date: unknown; rating:unknown }) =>
-			
+			{hot.map((movie: any) =>
 			<div class="home__card">
 				<a href={"movie/" + movie.slug}>
 					<Image src={movie.image.thumb + "&w=414&h=330&fit=cover&format=webp&quality=80&output=webp"} alt={movie.name}/>
