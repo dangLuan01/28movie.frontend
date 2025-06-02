@@ -6,6 +6,7 @@ type Movie = {
   type: string;
   release_date: string;
   rating: number;
+  genres: {name:string};
 };
 export default function MovieList() {
     const PAGE_SIZE = 24;
@@ -13,12 +14,12 @@ export default function MovieList() {
     const [page, setPage] = useState(1);
     const [, setLoading] = useState(false);
     //const [hasMore, setHasMore] = useState(true);
-    const API_URL = 'http://localhost:8080/api/v1/movies';
+    const API_URL = import.meta.env.PUBLIC_API_GO_URL;
 
     async function fetchMovies(currentPage: number) {
         setLoading(true);
         try {
-            const res = await fetch(`${API_URL}?page=${currentPage}&page_size=${PAGE_SIZE}`);
+            const res = await fetch(`${API_URL}/api/v1/movies?page=${currentPage}&page_size=${PAGE_SIZE}`);
             if (!res.ok) throw new Error('Network response was not ok');
             const data = await res.json();
             setMovies((prev) => [...prev, ...data.data]);
@@ -42,7 +43,7 @@ export default function MovieList() {
     return (
     <>
         <div className="row row--grid">
-            {movies.map((movie) => (
+            {movies.map((movie:any) => (
             <div key={movie.slug} className="col-6 col-sm-4 col-lg-3 col-xl-2">
                 <div className="card">
                     <a href={movie.type == 'single' ? 'movie/' + movie.slug : 'tv-series/' + movie.slug} className="card__cover">
@@ -73,7 +74,7 @@ export default function MovieList() {
                     </h3>
                     <ul className="card__list">
                         <li>Free</li>
-                        <li>Action</li>
+                        <li>{movie.genres[0].name}</li>
                         <li>{movie.release_date}</li>
                     </ul>
                 </div>

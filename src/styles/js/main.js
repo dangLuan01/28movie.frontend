@@ -1,4 +1,4 @@
-document.addEventListener('astro:page-load', () => {
+//document.addEventListener('astro:page-load', () => {
 
 $(document).ready(function () {
   "use strict"; // start of use strict
@@ -471,4 +471,4 @@ $(document).ready(function () {
   // }
 });
 
-});
+//});

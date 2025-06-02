@@ -2,8 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Image } from 'astro:assets';
 import avatar from "../../images/avatar.svg";
-import Video from "../../components/Video.astro";
-import EpisodePlayer from "../../components/EpisodePlayer"
+import VideoPlayer from "../../components/VideoTVPlayer";
 const { slug } = Astro.params;
 const imageSrc = "https://wsrv.nl/?url="
 // Fetch movie details based on slug
@@ -49,14 +48,7 @@ const movie = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
               <!-- end article content -->
             </div>
 
-            <EpisodePlayer
-              client:only="react"
-              episodes={movie.servers[0].episodes}
-              imageThumb={imageSrc + movie.image.thumb + "&q=1"}
-              movieName={movie.name}
-              runtime={movie.runtime}
-              
-            />
+           <VideoPlayer movie={movie} client:only="react"/>
             <div class="col-12 col-xl-8">
               <!-- categories -->
               <div class="categories">
