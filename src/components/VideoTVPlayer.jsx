@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Plyr from 'plyr';
-import 'plyr/dist/plyr.css';
+//import 'plyr/dist/plyr.css';
 
-const VideoPlayer = ({ movie }) => {
-  const imgSrc = import.meta.env.PUBLIC_URL_WSRV;
-  const videoRef = useRef(null);
-  const hlsRef = useRef(null);
-  const plyrRef = useRef(null);
+const VideoPlayer   = ({ movie }) => {
+  const imgSrc      = import.meta.env.PUBLIC_URL_WSRV;
+  const videoRef    = useRef(null);
+  const hlsRef      = useRef(null);
+  const plyrRef     = useRef(null);
   const carouselRef = useRef(null);
 
   // Server và episode present
@@ -19,9 +19,12 @@ const VideoPlayer = ({ movie }) => {
 
   // Initialize carousel
   useEffect(() => {
+    
     if (typeof window !== 'undefined' && window.$) {
       const $ = window.$;
       carouselRef.current = $('.owl-carousel').owlCarousel({
+        mouseDrag:true,
+        touchDrag: true,
         loop: false,
         margin: 10,
         nav: false,
@@ -151,8 +154,7 @@ const VideoPlayer = ({ movie }) => {
                 <div 
                   key={epIdx} 
                   className="series"
-                  onClick={() => setCurrentEpisodeIdx(epIdx)}
-                >
+                  onClick={() => setCurrentEpisodeIdx(epIdx)}>
                   <div className="series__cover">
                     <img 
                       src={imgSrc + movie.image.thumb + "&q=1"} 
@@ -191,8 +193,7 @@ const VideoPlayer = ({ movie }) => {
             <button
               className="section__nav section__nav--series section__nav--prev"
               onClick={handlePrev}
-              type="button"
-            >
+              type="button">
               <svg width="17" height="15" viewBox="0 0 17 15" fill="none">
                 <path d="M1.25 7.72559L16.25 7.72559" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 <path d="M7.2998 1.70124L1.2498 7.72524L7.2998 13.7502" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -201,8 +202,7 @@ const VideoPlayer = ({ movie }) => {
             <button
               className="section__nav section__nav--series section__nav--next"
               onClick={handleNext}
-              type="button"
-            >
+              type="button">
               <svg width="17" height="15" viewBox="0 0 17 15" fill="none">
                 <path d="M15.75 7.72559L0.75 7.72559" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 <path d="M9.7002 1.70124L15.7502 7.72524L9.7002 13.7502" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

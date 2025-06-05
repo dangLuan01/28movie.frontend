@@ -31,7 +31,7 @@ const genres = await fetch('http://localhost:8080/api/v1/genre',{
         <div class="row row--grid">
           {genres.map((genre:any) => (
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <a href="#" class="category">
+                <a href={'/genre/' + genre.slug} class="category">
                   <div class="category__cover">
                     <Image
                       src={genre.image + "&fit=cover&w=414&h=280&format=webp&output=webp"}

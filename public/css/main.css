@@ -1328,7 +1328,7 @@ body::-webkit-scrollbar-thumb {
   }
   .section__nav--series {
     top: 90px;
-    margin-top: -25px;
+    margin-top: -50px;
   }
   .section__nav--prev {
     right: 100%;

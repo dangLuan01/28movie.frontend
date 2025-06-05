@@ -55,7 +55,7 @@ const movie = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
               <div class="categories">
                 <h3 class="categories__title">Genres</h3>
                 {movie.genres.map((genre:any) => (
-                  <a href={`genre/${genre.slug}`} class="categories__item">{genre.name}</a>
+                  <a href={`/genre/${genre.slug}`} class="categories__item">{genre.name}</a>
                 ))}
               </div>
               <!-- end categories -->
