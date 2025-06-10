@@ -176,157 +176,157 @@ $(document).ready(function () {
   /*==============================
 	Interview
 	==============================*/
-  $(".section__interview").owlCarousel({
-    mouseDrag: true,
-    touchDrag: true,
-    dots: true,
-    loop: true,
-    autoplay: false,
-    smartSpeed: 600,
-    margin: 20,
-    autoHeight: true,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      576: {
-        items: 2,
-      },
-      768: {
-        items: 2,
-        margin: 30,
-      },
-      992: {
-        items: 3,
-        margin: 30,
-      },
-      1200: {
-        items: 3,
-        margin: 30,
-        dots: false,
-        mouseDrag: false,
-        slideBy: 3,
-        autoplay: true,
-        autoplayTimeout: 5000,
-        autoplayHoverPause: true,
-      },
-    },
-  });
+  // $(".section__interview").owlCarousel({
+  //   mouseDrag: true,
+  //   touchDrag: true,
+  //   dots: true,
+  //   loop: true,
+  //   autoplay: false,
+  //   smartSpeed: 600,
+  //   margin: 20,
+  //   autoHeight: true,
+  //   responsive: {
+  //     0: {
+  //       items: 1,
+  //     },
+  //     576: {
+  //       items: 2,
+  //     },
+  //     768: {
+  //       items: 2,
+  //       margin: 30,
+  //     },
+  //     992: {
+  //       items: 3,
+  //       margin: 30,
+  //     },
+  //     1200: {
+  //       items: 3,
+  //       margin: 30,
+  //       dots: false,
+  //       mouseDrag: false,
+  //       slideBy: 3,
+  //       autoplay: true,
+  //       autoplayTimeout: 5000,
+  //       autoplayHoverPause: true,
+  //     },
+  //   },
+  // });
 
   /*==============================
 	Series
 	==============================*/
-  $(".section__series").owlCarousel({
-    mouseDrag: true,
-    touchDrag: true,
-    dots: true,
-    loop: true,
-    autoplay: false,
-    smartSpeed: 600,
-    margin: 20,
-    autoHeight: true,
-    responsive: {
-      0: {
-        items: 2,
-      },
-      576: {
-        items: 3,
-      },
-      768: {
-        items: 3,
-        margin: 20,
-      },
-      992: {
-        items: 4,
-        margin: 20,
-      },
-      1200: {
-        items: 5,
-        margin: 20,
-        dots: false,
-        mouseDrag: false,
-      },
-      1440: {
-        items: 5,
-        margin: 20,
-        dots: false,
-        mouseDrag: false,
-      },
-    },
-  });
+  // $(".section__series").owlCarousel({
+  //   mouseDrag: true,
+  //   touchDrag: true,
+  //   dots: true,
+  //   loop: true,
+  //   autoplay: false,
+  //   smartSpeed: 600,
+  //   margin: 20,
+  //   autoHeight: true,
+  //   responsive: {
+  //     0: {
+  //       items: 2,
+  //     },
+  //     576: {
+  //       items: 3,
+  //     },
+  //     768: {
+  //       items: 3,
+  //       margin: 20,
+  //     },
+  //     992: {
+  //       items: 4,
+  //       margin: 20,
+  //     },
+  //     1200: {
+  //       items: 5,
+  //       margin: 20,
+  //       dots: false,
+  //       mouseDrag: false,
+  //     },
+  //     1440: {
+  //       items: 5,
+  //       margin: 20,
+  //       dots: false,
+  //       mouseDrag: false,
+  //     },
+  //   },
+  // });
 
   /*==============================
 	Live
 	==============================*/
-  $(".section__live").owlCarousel({
-    mouseDrag: true,
-    touchDrag: true,
-    dots: true,
-    loop: true,
-    autoplay: false,
-    smartSpeed: 600,
-    margin: 20,
-    autoHeight: true,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      576: {
-        items: 2,
-      },
-      768: {
-        items: 2,
-        margin: 30,
-      },
-      992: {
-        items: 3,
-        margin: 30,
-      },
-      1200: {
-        items: 3,
-        margin: 30,
-        dots: false,
-        mouseDrag: false,
-        slideBy: 3,
-      },
-    },
-  });
+  // $(".section__live").owlCarousel({
+  //   mouseDrag: true,
+  //   touchDrag: true,
+  //   dots: true,
+  //   loop: true,
+  //   autoplay: false,
+  //   smartSpeed: 600,
+  //   margin: 20,
+  //   autoHeight: true,
+  //   responsive: {
+  //     0: {
+  //       items: 1,
+  //     },
+  //     576: {
+  //       items: 2,
+  //     },
+  //     768: {
+  //       items: 2,
+  //       margin: 30,
+  //     },
+  //     992: {
+  //       items: 3,
+  //       margin: 30,
+  //     },
+  //     1200: {
+  //       items: 3,
+  //       margin: 30,
+  //       dots: false,
+  //       mouseDrag: false,
+  //       slideBy: 3,
+  //     },
+  //   },
+  // });
 
   /*==============================
 	Partners
 	==============================*/
-  $(".partners").owlCarousel({
-    mouseDrag: false,
-    touchDrag: false,
-    dots: false,
-    loop: true,
-    autoplay: true,
-    autoplayTimeout: 5000,
-    autoplayHoverPause: true,
-    smartSpeed: 600,
-    margin: 20,
-    responsive: {
-      0: {
-        items: 2,
-      },
-      576: {
-        items: 2,
-        margin: 30,
-      },
-      768: {
-        items: 3,
-        margin: 30,
-      },
-      992: {
-        items: 4,
-        margin: 30,
-      },
-      1200: {
-        items: 6,
-        margin: 30,
-      },
-    },
-  });
+  // $(".partners").owlCarousel({
+  //   mouseDrag: false,
+  //   touchDrag: false,
+  //   dots: false,
+  //   loop: true,
+  //   autoplay: true,
+  //   autoplayTimeout: 5000,
+  //   autoplayHoverPause: true,
+  //   smartSpeed: 600,
+  //   margin: 20,
+  //   responsive: {
+  //     0: {
+  //       items: 2,
+  //     },
+  //     576: {
+  //       items: 2,
+  //       margin: 30,
+  //     },
+  //     768: {
+  //       items: 3,
+  //       margin: 30,
+  //     },
+  //     992: {
+  //       items: 4,
+  //       margin: 30,
+  //     },
+  //     1200: {
+  //       items: 6,
+  //       margin: 30,
+  //     },
+  //   },
+  // });
 
   /*==============================
 	Navigation

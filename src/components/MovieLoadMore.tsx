@@ -9,7 +9,7 @@ type Movie = {
   genres: {name:string};
 };
 export default function MovieList() {
-    const PAGE_SIZE = 24;
+    const PAGE_SIZE = 18;
     const [movies, setMovies] = useState<Movie[]>([]);
     const [page, setPage] = useState(1);
     const [, setLoading] = useState(false);
@@ -22,7 +22,7 @@ export default function MovieList() {
             const res = await fetch(`${API_URL}/api/v1/movies?page=${currentPage}&page_size=${PAGE_SIZE}`);
             if (!res.ok) throw new Error('Network response was not ok');
             const data = await res.json();
-            setMovies((prev) => [...prev, ...data.data]);
+            setMovies((prev) => [...prev, ...data.movies]);
             //setHasMore(currentPage < 100);
         } catch (error) {
             console.error('Failed to fetch movies:', error);

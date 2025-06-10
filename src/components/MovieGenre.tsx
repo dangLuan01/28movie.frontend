@@ -26,7 +26,7 @@ export default function MovieGenre({ slug }: MovieGenreProps) {
             const res = await fetch(`${API_URL}/api/v1/genre/${slug}?page=${currentPage}&page_size=${PAGE_SIZE}`);
             if (!res.ok) throw new Error('Network response was not ok');
             const data = await res.json();
-            setMovies((prev) => [...prev, ...data.data]);
+            setMovies((prev) => [...prev, ...data.movies]);
             //setHasMore(currentPage < 100);
         } catch (error) {
             console.error('Failed to fetch movies:', error);

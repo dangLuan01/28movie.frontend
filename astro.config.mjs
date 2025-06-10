@@ -9,4 +9,8 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
+  //Setup xss
+  // experimental:({
+  //   csp:true
+  // }),
 });
