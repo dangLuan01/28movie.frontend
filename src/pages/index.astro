@@ -3,14 +3,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Image from '../components/Image.astro';
 import MovieList from '../components/MovieLoadMore';
 import MovieTheme from '../components/MovieTheme';
+
 const domainApi = import.meta.env.PUBLIC_API_GO_URL;
-const movieHot = await fetch(domainApi + '/api/v1/movie-hot',{
-	method: 'GET',
-}).then((response) => response.json());
+// const movieHot = await fetch(domainApi + '/api/v1/movie-hot',{
+// 	method: 'GET',
+// }).then((response) => response.json());
 const genres = await fetch(domainApi + '/api/v1/genre-home',{
 	method: 'GET',
 }).then((response) => response.json());
-
 ---
 
  <BaseLayout title="28MOVIE" description="Home page">
@@ -55,8 +55,9 @@ const genres = await fetch(domainApi + '/api/v1/genre-home',{
 	</div>
 	<!-- end catalog -->
 	<!-- themes -->
-	<MovieTheme client:load />
+	<MovieTheme client:only="react" />
 	<!-- end themes -->
 	<!-- subscriptions -->
+	
 	<!-- end subscriptions -->
 </BaseLayout>
