@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 type Movie = {
-  slug: string;
-  image: { poster: string };
-  name: string;
-  type: string;
-  release_date: string;
-  rating: number;
-  genres: {name:string};
+    name: string;
+    origin_name: string;
+    slug: string;
+    image: { poster: string };
+    type: string;
+    release_date: string;
+    rating: number;
+    genres: {name:string};
 };
 export default function MovieList() {
     const PAGE_SIZE = 18;
@@ -47,7 +48,7 @@ export default function MovieList() {
             <div key={movie.slug} className="col-6 col-sm-4 col-lg-3 col-xl-2">
                 <div className="card">
                     <a href={movie.type == 'single' ? 'movie/' + movie.slug : 'tv-series/' + movie.slug} className="card__cover">
-                        <img src={ "https://wsrv.nl/?url=" + movie.image.poster + "&format=webp&quality=50&output=webp"} alt={movie.slug} />
+                        <img src={ "https://wsrv.nl/?url=" + movie.image.poster + "&format=webp&quality=50&output=webp"} alt={movie.origin_name} loading='lazy' decoding='async'/>
                         <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M11 1C16.5228 1 21 5.47716 21 11C21 16.5228 16.5228 21 11 21C5.47716 21 1 16.5228 1 11C1 5.47716 5.47716 1 11 1Z"
                             stroke-linecap="round" stroke-linejoin="round" />
@@ -67,11 +68,11 @@ export default function MovieList() {
                         </svg>
                     {movie.rating}
                     </span>
-                    <h3 className="card__title">
+                    <h2 className="card__title">
                         <a href={movie.type == 'single' ? 'movie/' + movie.slug : 'tv-series/' + movie.slug}>
                             {movie.name}
                         </a>
-                    </h3>
+                    </h2>
                     <ul className="card__list">
                         <li>Free</li>
                         <li>{movie.genres[0].name}</li>

@@ -7,7 +7,10 @@ const { slug } = Astro.params;
 //   method: 'GET',
 // }).then((response) => response.json());
 ---
-<BaseLayout title="List Genre Movie" description="Movie page">
+<BaseLayout title={'Genre'}
+    meta={{ 
+      description: 'genre',
+    }}>
      <!-- head -->
     <section class="section section--head section--head-fixed">
       <div class="container">

@@ -140,80 +140,80 @@ $(document).ready(function () {
   /*==============================
 	Carousel
 	==============================*/
-  $(".section__carousel").owlCarousel({
-    mouseDrag: true,
-    touchDrag: true,
-    dots: true,
-    loop: true,
-    autoplay: false,
-    smartSpeed: 600,
-    margin: 20,
-    autoHeight: true,
-    responsive: {
-      0: {
-        items: 2,
-      },
-      576: {
-        items: 3,
-      },
-      768: {
-        items: 3,
-        margin: 30,
-      },
-      992: {
-        items: 4,
-        margin: 30,
-      },
-      1200: {
-        items: 6,
-        margin: 30,
-        dots: false,
-        mouseDrag: false,
-        slideBy: 6,
-        smartSpeed: 400,
-      },
-    },
-  });
+  // $(".section__carousel").owlCarousel({
+  //   mouseDrag: true,
+  //   touchDrag: true,
+  //   dots: true,
+  //   loop: true,
+  //   autoplay: false,
+  //   smartSpeed: 600,
+  //   margin: 20,
+  //   autoHeight: true,
+  //   responsive: {
+  //     0: {
+  //       items: 2,
+  //     },
+  //     576: {
+  //       items: 3,
+  //     },
+  //     768: {
+  //       items: 3,
+  //       margin: 30,
+  //     },
+  //     992: {
+  //       items: 4,
+  //       margin: 30,
+  //     },
+  //     1200: {
+  //       items: 6,
+  //       margin: 30,
+  //       dots: false,
+  //       mouseDrag: false,
+  //       slideBy: 6,
+  //       smartSpeed: 400,
+  //     },
+  //   },
+  // });
 
   /*==============================
 	Interview
 	==============================*/
-  $(".section__interview").owlCarousel({
-    mouseDrag: true,
-    touchDrag: true,
-    dots: true,
-    loop: true,
-    autoplay: false,
-    smartSpeed: 600,
-    margin: 20,
-    autoHeight: true,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      576: {
-        items: 2,
-      },
-      768: {
-        items: 2,
-        margin: 30,
-      },
-      992: {
-        items: 3,
-        margin: 30,
-      },
-      1200: {
-        items: 3,
-        margin: 30,
-        dots: false,
-        mouseDrag: false,
-        slideBy: 3,
-        autoplay: true,
-        autoplayTimeout: 5000,
-        autoplayHoverPause: true,
-      },
-    },
-  });
+  // $(".section__interview").owlCarousel({
+  //   mouseDrag: true,
+  //   touchDrag: true,
+  //   dots: true,
+  //   loop: true,
+  //   autoplay: false,
+  //   smartSpeed: 600,
+  //   margin: 20,
+  //   autoHeight: true,
+  //   responsive: {
+  //     0: {
+  //       items: 1,
+  //     },
+  //     576: {
+  //       items: 2,
+  //     },
+  //     768: {
+  //       items: 2,
+  //       margin: 30,
+  //     },
+  //     992: {
+  //       items: 3,
+  //       margin: 30,
+  //     },
+  //     1200: {
+  //       items: 3,
+  //       margin: 30,
+  //       dots: false,
+  //       mouseDrag: false,
+  //       slideBy: 3,
+  //       autoplay: true,
+  //       autoplayTimeout: 5000,
+  //       autoplayHoverPause: true,
+  //     },
+  //   },
+  // });
 
   /*==============================
 	Series
@@ -297,50 +297,50 @@ $(document).ready(function () {
   /*==============================
 	Partners
 	==============================*/
-  $(".partners").owlCarousel({
-    mouseDrag: false,
-    touchDrag: false,
-    dots: false,
-    loop: true,
-    autoplay: true,
-    autoplayTimeout: 5000,
-    autoplayHoverPause: true,
-    smartSpeed: 600,
-    margin: 20,
-    responsive: {
-      0: {
-        items: 2,
-      },
-      576: {
-        items: 2,
-        margin: 30,
-      },
-      768: {
-        items: 3,
-        margin: 30,
-      },
-      992: {
-        items: 4,
-        margin: 30,
-      },
-      1200: {
-        items: 6,
-        margin: 30,
-      },
-    },
-  });
+  // $(".partners").owlCarousel({
+  //   mouseDrag: false,
+  //   touchDrag: false,
+  //   dots: false,
+  //   loop: true,
+  //   autoplay: true,
+  //   autoplayTimeout: 5000,
+  //   autoplayHoverPause: true,
+  //   smartSpeed: 600,
+  //   margin: 20,
+  //   responsive: {
+  //     0: {
+  //       items: 2,
+  //     },
+  //     576: {
+  //       items: 2,
+  //       margin: 30,
+  //     },
+  //     768: {
+  //       items: 3,
+  //       margin: 30,
+  //     },
+  //     992: {
+  //       items: 4,
+  //       margin: 30,
+  //     },
+  //     1200: {
+  //       items: 6,
+  //       margin: 30,
+  //     },
+  //   },
+  // });
 
   /*==============================
 	Navigation
 	==============================*/
-  $(".section__nav--prev, .home__nav--prev").on("click", function () {
-    var carouselId = $(this).attr("data-nav");
-    $(carouselId).trigger("prev.owl.carousel");
-  });
-  $(".section__nav--next, .home__nav--next").on("click", function () {
-    var carouselId = $(this).attr("data-nav");
-    $(carouselId).trigger("next.owl.carousel");
-  });
+  // $(".section__nav--prev, .home__nav--prev").on("click", function () {
+  //   var carouselId = $(this).attr("data-nav");
+  //   $(carouselId).trigger("prev.owl.carousel");
+  // });
+  // $(".section__nav--next, .home__nav--next").on("click", function () {
+  //   var carouselId = $(this).attr("data-nav");
+  //   $(carouselId).trigger("next.owl.carousel");
+  // });
 
   /*==============================
 	Bg

@@ -10,7 +10,11 @@ const movie = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
   method: 'GET',
 }).then((response) => response.json());
 ---
-<BaseLayout title={movie.name} description="TV Series page">    
+<BaseLayout title={'Xem phim ' + movie.name + ' ('+ movie.release_date +')' + ' - ' + movie.origin_name}
+    meta={{ 
+      description: movie.name + ' ('+ movie.release_date +')' + ' - ' + movie.content,
+      image: movie.image.thumb
+    }}>
  <!-- details -->
     <section class="section section--head section--head-fixed section--gradient section--details-bg">
       <div class="section__bg" data-bg={imageSrc + movie.image.thumb + "&q=50"}></div>
@@ -30,7 +34,10 @@ const movie = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
               <!-- end trailer -->
               <!-- article content -->
               <div class="article__content">
-                <h1>{movie.name}</h1>
+                <h2>{movie.name}</h2>
+                <ul class="list">
+                  <li><h6>{movie.origin_name}</h6></li>
+                </ul>
                 <ul class="list">
                   <li>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

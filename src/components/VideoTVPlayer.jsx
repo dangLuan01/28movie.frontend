@@ -6,7 +6,7 @@ const VideoPlayer   = ({ movie }) => {
   const imgSrc      = import.meta.env.PUBLIC_URL_WSRV;
   const videoRef    = useRef(null);
   const hlsRef      = useRef(null);
-  const plyrRef     = useRef(null);
+  const plyrRef     = useRef(null); 
   const carouselRef = useRef(null);
 
   // Server và episode present
