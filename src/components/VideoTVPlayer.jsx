@@ -162,7 +162,7 @@ const VideoPlayer   = ({ movie }) => {
                       onError={(e) => {
                         e.target.src = 'img/series/2.jpg';
                       }}
-                      loading='lazy'/>
+                      loading='lazy' decoding='async'/>
                     <span>
                       {epIdx === currentEpisodeIdx ? 
                       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

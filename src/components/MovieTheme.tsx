@@ -36,7 +36,7 @@ export default function MovieThemeLoader() {
   const [totalThemePages, setTotalThemePages]   = useState(1);
   const [loadingThemes, setLoadingThemes]       = useState(false);
   const observerTarget                          = useRef<HTMLDivElement>(null);
-  const carouselRef                             = useRef<OwlCarousel>(null);
+  const carouselRefs                            = useRef<(OwlCarousel | null)[]>([]);
   const API_URL                                 = import.meta.env.PUBLIC_API_GO_URL;
   // Fetch themes
   const fetchThemes = useCallback(async (page: number) => {
@@ -152,19 +152,30 @@ export default function MovieThemeLoader() {
     },
   };
   
-   const handleNext = () => {
-    if (carouselRef.current) {
-      carouselRef.current.next([300,350]);
+  // const handleNext = () => {
+  //   if (carouselRef.current) {
+  //     carouselRef.current.next([300,350]);
+  //   }
+  // };
+  // const handlePrev = () => {
+  //   if (carouselRef.current) {
+  //     carouselRef.current.prev([350,400]);
+  //   }
+  // };
+  const handleNext = (index: number) => {
+  if (carouselRefs.current[index]) {
+      carouselRefs.current[index]?.next([300, 350]);
     }
   };
-  const handlePrev = () => {
-    if (carouselRef.current) {
-      carouselRef.current.prev([350,400]);
+
+const handlePrev = (index: number) => {
+  if (carouselRefs.current[index]) {
+      carouselRefs.current[index]?.prev([350, 400]);
     }
   };
   return (
     <>
-      {visibleThemes.map((items) => (
+      {visibleThemes.map((items, index) => (
         <>
         {items.theme.layout === 1 ? (
         <div key={items.theme.id} className="catalog">
@@ -233,7 +244,7 @@ export default function MovieThemeLoader() {
           </div>
         </div>
         ):(
-        <div className="catalog">
+        <div className="catalog" key={items.theme.id}>
           <div className="container">
             <div className="row">
               <div className="col-12">
@@ -241,7 +252,7 @@ export default function MovieThemeLoader() {
               </div>
               <div className="col-12">
                 <div className="section__carousel-wrap">
-                    <OwlCarousel className="" {...options} ref={carouselRef}>
+                    <OwlCarousel className="" {...options} ref={(el) => {carouselRefs.current[index] = el;}}>
                        {items.data.movies.map((movie) => (
                         <div className="card">
                           <a href={ movie.type === 'single' ? '/movie/' + movie.slug : '/tv-series/' + movie.slug } className="card__cover">
@@ -283,7 +294,7 @@ export default function MovieThemeLoader() {
                   {/* <div className="section__carousel owl-carousel" id="subscriptions">
                     
                   </div> */}
-                  <button onClick={handlePrev} className="section__nav section__nav--cards section__nav--prev" data-nav="#subscriptions" type="button">
+                  <button onClick={() => handlePrev(index)}  className="section__nav section__nav--cards section__nav--prev" data-nav="#subscriptions" type="button">
                     <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M1.25 7.72559L16.25 7.72559" stroke-width="1.5" stroke-linecap="round"
                       stroke-linejoin="round" />
@@ -291,7 +302,7 @@ export default function MovieThemeLoader() {
                       stroke-linejoin="round" />
                     </svg>
                   </button>
-                  <button onClick={handleNext} className="section__nav section__nav--cards section__nav--next" data-nav="#subscriptions" type="button">
+                  <button onClick={() => handleNext(index)}  className="section__nav section__nav--cards section__nav--next" data-nav="#subscriptions" type="button">
                     <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M15.75 7.72559L0.75 7.72559" stroke-width="1.5" stroke-linecap="round"
                       stroke-linejoin="round" />
