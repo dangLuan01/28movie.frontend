@@ -125,7 +125,6 @@ export default function MovieThemeLoader() {
     autoplay: false,
     smartSpeed: 600,
     margin: 20,
-    autoHeight: true,
     responsive: {
       0: {
         items: 2,
@@ -296,18 +295,18 @@ const handlePrev = (index: number) => {
                   </div> */}
                   <button onClick={() => handlePrev(index)}  className="section__nav section__nav--cards section__nav--prev" data-nav="#subscriptions" type="button">
                     <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1.25 7.72559L16.25 7.72559" stroke-width="1.5" stroke-linecap="round"
-                      stroke-linejoin="round" />
-                      <path d="M7.2998 1.70124L1.2498 7.72524L7.2998 13.7502" stroke-width="1.5" stroke-linecap="round"
-                      stroke-linejoin="round" />
+                      <path d="M1.25 7.72559L16.25 7.72559" strokeWidth="1.5" strokeLinecap="round"
+                      strokeLinejoin="round" />
+                      <path d="M7.2998 1.70124L1.2498 7.72524L7.2998 13.7502" strokeWidth="1.5" strokeLinecap="round"
+                      strokeLinejoin="round" />
                     </svg>
                   </button>
                   <button onClick={() => handleNext(index)}  className="section__nav section__nav--cards section__nav--next" data-nav="#subscriptions" type="button">
                     <svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M15.75 7.72559L0.75 7.72559" stroke-width="1.5" stroke-linecap="round"
-                      stroke-linejoin="round" />
-                      <path d="M9.7002 1.70124L15.7502 7.72524L9.7002 13.7502" stroke-width="1.5" stroke-linecap="round"
-                      stroke-linejoin="round" />
+                      <path d="M15.75 7.72559L0.75 7.72559" strokeWidth="1.5" strokeLinecap="round"
+                      strokeLinejoin="round" />
+                      <path d="M9.7002 1.70124L15.7502 7.72524L9.7002 13.7502" strokeWidth="1.5" strokeLinecap="round"
+                      strokeLinejoin="round" />
                     </svg>
                   </button>
                 </div>
