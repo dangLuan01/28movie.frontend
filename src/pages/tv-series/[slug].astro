@@ -17,7 +17,7 @@ const movie = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
     }}>
  <!-- details -->
     <section class="section section--head section--head-fixed section--gradient section--details-bg">
-      <div class="section__bg" data-bg={imageSrc + movie.image.thumb + "&q=50"}></div>
+      <div class="section__bg" data-bg={imageSrc + movie.image.thumb + "&format=webp&quality=30&output=webp"}></div>
         <div class="container">
         <!-- article -->
         <div class="article">

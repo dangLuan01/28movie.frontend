@@ -14,6 +14,7 @@
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "astro": "^5.9.2",
+    "embla-carousel-react": "^8.6.0",
     "hls.js": "^1.6.3",
     "plyr": "^3.7.8",
     "react": "^19.1.0",

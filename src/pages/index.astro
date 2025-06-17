@@ -1,21 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Image from '../components/Image.astro';
-import MovieList from '../components/MovieLoadMore';
+import MovieList from '../components/MovieList';
 import MovieTheme from '../components/MovieTheme';
+import LoadMore from '../components/LoadMore';
+import MovieHot from '../components/MovieHot';
 
 const domainApi = import.meta.env.PUBLIC_API_GO_URL;
-// const movieHot = await fetch(domainApi + '/api/v1/movie-hot',{
-// 	method: 'GET',
-// }).then((response) => response.json());
+const moviesHot = await fetch(domainApi + '/api/v1/movie-hot',{
+	method: 'GET',
+}).then((response) => response.json());
 const genres = await fetch(domainApi + '/api/v1/genre-home',{
 	method: 'GET',
 }).then((response) => response.json());
+
+const currentPage =  parseInt('1');
+const datas = await fetch(`${domainApi}/api/v1/movies?page=${currentPage}&page_size=18`,{
+	method: 'GET',
+}).then((data) => data.json());
 ---
 
  <BaseLayout title="28MOVIE" description="Home page">
 	<!-- home -->
-	
+	<MovieHot moviesHot={moviesHot} client:load />
 	<!-- end home -->
 	<!-- catalog -->
 	<div class="catalog">
@@ -48,13 +54,14 @@ const genres = await fetch(domainApi + '/api/v1/genre-home',{
 							<input type="radio" name="grade" id="newest" /><label for="newest">Newest</label>
 						</div>
 					</div>
-					<MovieList client:load />
+					<MovieList movies={datas.movies} client:load />
+					<LoadMore domain={domainApi} initialPage={currentPage} client:load/>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- end catalog -->
 	<!-- themes -->
-	<MovieTheme client:only="react" />
+	<MovieTheme client:only />
 	<!-- end themes -->
 </BaseLayout>

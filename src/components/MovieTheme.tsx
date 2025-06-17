@@ -29,7 +29,7 @@ type ThemeData = {
 };
 
 export default function MovieThemeLoader() {
-  const THEMES_PER_LOAD                         = 2;
+  const THEMES_PER_LOAD                         = 1;
   const [allThemes, setAllThemes]               = useState<ThemeData[]>([]);
   const [visibleThemes, setVisibleThemes]       = useState<ThemeData[]>([]);
   const [currentThemePage, setCurrentThemePage] = useState(1);
