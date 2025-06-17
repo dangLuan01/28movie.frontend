@@ -12,7 +12,6 @@ const moviesHot = await fetch(domainApi + '/api/v1/movie-hot',{
 const genres = await fetch(domainApi + '/api/v1/genre-home',{
 	method: 'GET',
 }).then((response) => response.json());
-
 const currentPage =  parseInt('1');
 const datas = await fetch(`${domainApi}/api/v1/movies?page=${currentPage}&page_size=18`,{
 	method: 'GET',
