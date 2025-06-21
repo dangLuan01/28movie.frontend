@@ -21,7 +21,7 @@ export default function MovieHot({ moviesHot }: { moviesHot: Movie[] }) {
 
 //   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
 //   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
-const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, skipSnaps: false, })
   const [selectedIndex, setSelectedIndex] = useState(0)
 
   const scrollNext = useCallback(() => {

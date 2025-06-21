@@ -1,26 +1,25 @@
 import { useState, useEffect } from "react";
 
 export default function Search() {
-  const [query, setQuery] = useState("");
+  const [query, setQuery]     = useState("");
   const [results, setResults] = useState<any[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [isOpen, setIsOpen]   = useState(false);
+  const API_URL               = import.meta.env.PUBLIC_API_GO_URL;
   useEffect(() => {
     if (!query) {
       setIsOpen(false);
       setResults([]);
       return;
     }
-
     const timeout = setTimeout(() => {
-      fetch(`http://localhost:8080/api/v1/_search?p=${encodeURIComponent(query)}`)
+      fetch(API_URL + `/api/v1/_search?p=${encodeURIComponent(query)}`)
         .then(res => res.json())
         .then(data => {
           setResults(data.movies);
           setIsOpen(true); // Mở popup
         })
         .catch(err => console.error(err));
-    }, 2000); // chờ 2s
+    }, 1000); // chờ 1s
 
     return () => clearTimeout(timeout); // clear nếu gõ tiếp
   }, [query]);
@@ -33,15 +32,14 @@ export default function Search() {
         type="text"
         placeholder="I'm looking for..."
         value={query}
-        onChange={e => setQuery(e.target.value)}
-      />
+        onChange={e => setQuery(e.target.value)}/>
       <button className="header__form-btn" type="button"  onClick={() => setIsOpen(true)} 
           disabled={!query}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path
               d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z" />
           </svg>
-	</button>
+	    </button>
     </form>
     <button className="header__search" type="button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -77,7 +75,7 @@ export default function Search() {
             </a>
             ))
           ) : (
-            <p>Không có phim nào.</p>
+            <p className="not-movie">Không có phim nào.</p>
           )}
         </div>
       </div>
