@@ -5625,7 +5625,7 @@ body::-webkit-scrollbar-thumb {
   transform: translateY(-2px) scale(1.01);
 }
 .poster {
-  width: 70px;
+  /* width: 70px; */
   height: 100px;
   object-fit: cover;
   border-radius: 9px;
@@ -5700,7 +5700,7 @@ body::-webkit-scrollbar-thumb {
     padding: 6px 4px 0px 6px;
   }
   .poster {
-    width: 65px;
+    width: 70px;
     height: 90px; 
     border-radius: 6px;
   }
