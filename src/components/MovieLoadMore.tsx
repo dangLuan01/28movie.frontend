@@ -24,7 +24,7 @@ export default function MovieList() {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': 'ab827ed2-86c2-5c7f-8eee-0326d169f0da'
+                    'x-api-key': ''
                 }
             });
 

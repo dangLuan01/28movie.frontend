@@ -11,37 +11,5 @@ const { slug } = Astro.params;
     meta={{ 
       description: 'genre',
     }}>
-     <!-- head -->
-    <section class="section section--head section--head-fixed">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-xl-6">
-            <h1 class="section__title section__title--head">{slug}</h1>
-          </div>
-          <div class="col-12 col-xl-6">
-            <ul class="breadcrumb">
-              <li class="breadcrumb__item"><a href="/">Home</a></li>
-              <li class="breadcrumb__item">
-                <a href="/genre">Genre</a>
-              </li>
-              <li class="breadcrumb__item breadcrumb__item--active">
-                {slug}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- end head -->
-    <!-- catalog -->
-    <div class="catalog catalog--page">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <MovieGenre slug={ slug || 'hanh-dong' } client:load/>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- end catalog -->
+    <MovieGenre slug={ slug || 'hanh-dong' } client:load/>
 </BaseLayout>

@@ -6,7 +6,7 @@ import LoadMore from '../components/LoadMore';
 import MovieHot from '../components/MovieHot';
 
 const domainApi = import.meta.env.PUBLIC_API_GO_URL;
-const apiKey = import.meta.env.API_KEY
+const apiKey = import.meta.env.PUBLIC_API_KEY
 const moviesHot = await fetch(domainApi + '/api/v1/movie/hot', {
   method: 'GET',
   headers: {

@@ -40,6 +40,8 @@ export default function MovieThemeLoader() {
   const observerTarget                          = useRef<HTMLDivElement>(null);
   const carouselRefs                            = useRef<(OwlCarousel | null)[]>([]);
   const API_URL                                 = import.meta.env.PUBLIC_API_GO_URL;
+  const apiKey                                  = import.meta.env.PUBLIC_API_KEY
+  
   // Fetch themes
   const fetchThemes = useCallback(async (page: number) => {
     if (loadingThemes || page > totalThemePages) return;
@@ -48,10 +50,10 @@ export default function MovieThemeLoader() {
     try {
       const res = await fetch(`${API_URL}/api/v1/theme?page_theme=${page}&limit=${THEMES_PER_LOAD}`, {
         method: 'GET',
-        // headers: {
-        //   'Content-Type': 'application/json',
-        //   'x-api-key': 'ab827ed2-86c2-5c7f-8eee-0326d169f0da'
-        // }
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey
+        }
       });
       
       const results = await res.json();
@@ -71,9 +73,13 @@ export default function MovieThemeLoader() {
   // Load more movies for a specific theme
   const fetchMoreMovies = async (themeId: number, currentPage: number) => {
     try {
-      const res = await fetch(
-        `${API_URL}/api/v1/theme?id=${themeId}&page_movie=${currentPage + 1}`
-      );
+      const res = await fetch(`${API_URL}/api/v1/theme?id=${themeId}&page_movie=${currentPage + 1}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey
+        }
+      });
       if (!res.ok) throw new Error('Network response was not ok');
       const results = await res.json();
       const result = results.data

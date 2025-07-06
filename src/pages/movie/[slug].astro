@@ -3,13 +3,19 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Image } from 'astro:assets';
 import avatar from "../../images/avatar.svg";
 import VideoPlayer from "../../components/VideoMoviePlayer";
-const { slug } = Astro.params;
-const imageSrc = "https://wsrv.nl/?url="
+const { slug }  = Astro.params;
+const imageSrc  = import.meta.env.PUBLIC_URL_WSRV
+const domainApi = import.meta.env.PUBLIC_API_GO_URL;
+const apiKey    = import.meta.env.PUBLIC_API_KEY
 // Fetch movie details based on slug
-const datas = await fetch(`http://localhost:8080/api/v1/movie/${slug}`, {
+const datas = await fetch(domainApi + `/api/v1/movie/${slug}`, {
   method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': apiKey
+  }
 }).then((response) => response.json());
-const movie =datas.movie
+const movie =datas.data
 ---
 <BaseLayout title={'Xem phim ' + movie.name + ' ('+ movie.release_date +')' + ' - ' + movie.origin_name}
     meta={{ 
@@ -246,7 +252,7 @@ const movie =datas.movie
                 <!-- end subscribe -->
 
                 <!-- new items -->
-                <div class="row row--grid">
+                <!-- <div class="row row--grid">
                     <div class="col-12">
                         <h5 class="sidebar__title">Relates</h5>
                     </div>
@@ -283,7 +289,7 @@ const movie =datas.movie
                     </div>
                     )}
                     
-                </div>
+                </div> -->
                 <!-- end new items -->
               </div>
             </div>

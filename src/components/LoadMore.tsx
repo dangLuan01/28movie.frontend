@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+const apiKey = import.meta.env.PUBLIC_API_KEY
 type Movie = {
     name: string;
     origin_name: string;
@@ -20,10 +20,10 @@ export default function LoadMore({ initialPage, domain }: {initialPage: number, 
         try {
             const res = await fetch(`${domain}/api/v1/movie?page=${page}&page_size=${PAGE_SIZE}`,{
                 method: 'GET',
-                // headers: {
-                //     'Content-Type': 'application/json',
-                //     'x-api-key': 'ab827ed2-86c2-5c7f-8eee-0326d169f0da'
-                // }
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': apiKey
+                }
             }).then((response) => response.json());
             const datas = res.data.movies
             const listMovies: Movie[] = datas;

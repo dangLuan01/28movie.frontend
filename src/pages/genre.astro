@@ -1,10 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Image from '../components/Image.astro';
-const genres = await fetch('http://localhost:8080/api/v1/genre',{
+const domainApi = import.meta.env.PUBLIC_API_GO_URL;
+const apiKey = import.meta.env.PUBLIC_API_KEY
+const data = await fetch(domainApi + '/api/v1/genre',{
 	method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': apiKey
+  }
 }).then((response) => response.json());
-
 ---
 <BaseLayout title={'Genre'}
     meta={{ 
@@ -32,7 +37,7 @@ const genres = await fetch('http://localhost:8080/api/v1/genre',{
     <section class="section section--pb0">
       <div class="container">
         <div class="row row--grid">
-          {genres.map((genre:any) => (
+          {data.data.map((genre:any) => (
             <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
                 <a href={'/genre/' + genre.slug} class="category">
                   <div class="category__cover">
