@@ -3,7 +3,16 @@ import { Image } from 'astro:assets';
 const path = Astro.url.pathname;
 const isHome = path === '/';
 import Search from './Search';
-const header = await fetch('http://localhost:8080/api/v1/category').then((response) => response.json());
+const domainApi = import.meta.env.PUBLIC_API_GO_URL;
+const apiKey = import.meta.env.API_KEY
+const header = await fetch(domainApi + '/api/v1/category', {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-api-key': apiKey
+  }
+}).then((response) => response.json());
+
 ---
 <header class={`header ${isHome ? 'header--static' : 'header--hidden'}`}>
 	<div class="container">
@@ -19,7 +28,7 @@ const header = await fetch('http://localhost:8080/api/v1/category').then((respon
 				<Image src={import('../images/logo.svg')} alt="Movies & TV Shows, Online cinema HTML Template" loading={'eager'}/>
 			</a>
 			<ul class="header__nav">
-				{header.map((item: { slug: any; name: unknown; }) => (
+				{header.data.map((item: { slug: any; name: unknown; }) => (
 					<li class="header__nav-item">
 						<a class="header__nav-link" href={item.slug} role="button" id="dropdownMenu2"
 						aria-haspopup="true" aria-expanded="false">{item.name}

@@ -20,10 +20,19 @@ export default function MovieList() {
     async function fetchMovies(currentPage: number) {
         setLoading(true);
         try {
-            const res = await fetch(`${API_URL}/api/v1/movies?page=${currentPage}&page_size=${PAGE_SIZE}`);
+          const res = await fetch(`${API_URL}/api/v1/movie?page=${currentPage}&page_size=${PAGE_SIZE}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'ab827ed2-86c2-5c7f-8eee-0326d169f0da'
+                }
+            });
+
             if (!res.ok) throw new Error('Network response was not ok');
-            const data = await res.json();
-            setMovies((prev) => [...prev, ...data.movies]);
+
+            const datas = await res.json();
+
+            setMovies((prev) => [...prev, ...datas.data.movies]);
             //setHasMore(currentPage < 100);
         } catch (error) {
             console.error('Failed to fetch movies:', error);

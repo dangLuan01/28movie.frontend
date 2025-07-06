@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback, Fragment } from 'react';
 import OwlCarousel from 'react-owl-carousel';
 type Movie = {
   name: string;
@@ -20,16 +20,18 @@ type ThemeData = {
     limit: number;
     layout: number;
   };
-  data: {
+  movies_of_theme: {
     movies: Movie[];
-    page: number;
-    page_size: number;
-    total_pages: number;
+    paginate: {
+      page: number;
+      page_size: number;
+      total_pages: number;
+    }
   };
 };
 
 export default function MovieThemeLoader() {
-  const THEMES_PER_LOAD                         = 1;
+  const THEMES_PER_LOAD                         = 2;
   const [allThemes, setAllThemes]               = useState<ThemeData[]>([]);
   const [visibleThemes, setVisibleThemes]       = useState<ThemeData[]>([]);
   const [currentThemePage, setCurrentThemePage] = useState(1);
@@ -44,17 +46,25 @@ export default function MovieThemeLoader() {
     
     setLoadingThemes(true);
     try {
-      const res = await fetch(`${API_URL}/api/v1/themes?page_theme=${page}&page_size=${THEMES_PER_LOAD}`);
-      if (!res.ok) throw new Error('Network response was not ok');
-      const result = await res.json();
+      const res = await fetch(`${API_URL}/api/v1/theme?page_theme=${page}&limit=${THEMES_PER_LOAD}`, {
+        method: 'GET',
+        // headers: {
+        //   'Content-Type': 'application/json',
+        //   'x-api-key': 'ab827ed2-86c2-5c7f-8eee-0326d169f0da'
+        // }
+      });
       
-      setAllThemes(prev => [...prev, ...result.datas]);
-      setTotalThemePages(result.total_pages);
+      const results = await res.json();
+      const result = results.data
+      
+      setAllThemes(prev => [...prev, ...result.data_themes]);
+      
+      setTotalThemePages(result.paginate.total_pages);
       setCurrentThemePage(page);
     } catch (error) {
-      console.error('Failed to fetch themes:', error);
+        console.error('Failed to fetch themes:', error);
     } finally {
-      setLoadingThemes(false);
+        setLoadingThemes(false);
     }
   }, [loadingThemes, totalThemePages, API_URL]);
 
@@ -62,20 +72,27 @@ export default function MovieThemeLoader() {
   const fetchMoreMovies = async (themeId: number, currentPage: number) => {
     try {
       const res = await fetch(
-        `${API_URL}/api/v1/themes?id=${themeId}&page_movie=${currentPage + 1}`
+        `${API_URL}/api/v1/theme?id=${themeId}&page_movie=${currentPage + 1}`
       );
       if (!res.ok) throw new Error('Network response was not ok');
-      const result = await res.json();
+      const results = await res.json();
+      const result = results.data
       
       setAllThemes(prev => 
         prev.map(theme => 
           theme.theme.id === themeId 
             ? { 
                 ...theme, 
-                data: {
-                  ...theme.data,
-                  movies: [...theme.data.movies, ...result.datas[0].data.movies],
-                  page: currentPage + 1
+                movies_of_theme: {
+                  ...theme.movies_of_theme,
+                  movies: [
+                    ...theme.movies_of_theme.movies,
+                    ...result.data_themes[0].movies_of_theme.movies
+                  ],
+                  paginate: {
+                    ...theme.movies_of_theme.paginate,
+                    page: currentPage + 1
+                  }
                 }
               } 
             : theme
@@ -167,15 +184,15 @@ export default function MovieThemeLoader() {
     }
   };
 
-const handlePrev = (index: number) => {
-  if (carouselRefs.current[index]) {
-      carouselRefs.current[index]?.prev([350, 400]);
+  const handlePrev = (index: number) => {
+    if (carouselRefs.current[index]) {
+        carouselRefs.current[index]?.prev([350, 400]);
     }
   };
   return (
     <>
       {visibleThemes.map((items, index) => (
-        <>
+        <Fragment key={items.theme.id}>
         {items.theme.layout === 1 ? (
         <div key={items.theme.id} className="catalog">
           <div className="container">
@@ -187,9 +204,9 @@ const handlePrev = (index: number) => {
               </div>
               <div className="col-12">
                 <div className="row row--grid">
-                  {items.data.movies.map((movie) => (
+                  {items.movies_of_theme.movies.map((movie) => (
                     <div key={movie.slug} className="col-6 col-sm-4 col-lg-3 col-xl-2">
-                      <div className="card">
+                      <div className="card" key={movie.slug}>
                         <a href={ movie.type === 'single' ? '/movie/' + movie.slug : '/tv-series/' + movie.slug } className="card__cover">
                           <img src={ 'https://wsrv.nl/?url=' + movie.image.poster + '&format=webp&quality=50&output=webp' } alt={movie.origin_name} loading='lazy' decoding='async'/>
                           <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -229,11 +246,11 @@ const handlePrev = (index: number) => {
               </div>
               <div className="row">
                 <div className="col-12">
-                  {items.data.page < items.data.total_pages && (
+                  {items.movies_of_theme.paginate.page < items.movies_of_theme.paginate.total_pages && (
                     <button
                       className="catalog__more"
                       type="button"
-                      onClick={() => fetchMoreMovies(items.theme.id, items.data.page)}>
+                      onClick={() => fetchMoreMovies(items.theme.id, items.movies_of_theme.paginate.page)}>
                       Load more
                     </button>
                   )}
@@ -252,8 +269,8 @@ const handlePrev = (index: number) => {
               <div className="col-12">
                 <div className="section__carousel-wrap">
                     <OwlCarousel className="" {...options} ref={(el) => {carouselRefs.current[index] = el;}}>
-                       {items.data.movies.map((movie) => (
-                        <div className="card">
+                       {items.movies_of_theme.movies.map((movie) => (
+                        <div className="card" key={movie.slug}>
                           <a href={ movie.type === 'single' ? '/movie/' + movie.slug : '/tv-series/' + movie.slug } className="card__cover">
                             <img src={ 'https://wsrv.nl/?url=' + movie.image.poster + '&format=webp&quality=50&output=webp' } alt={movie.origin_name} loading='lazy' decoding='async'/>
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -315,7 +332,7 @@ const handlePrev = (index: number) => {
           </div>
 	      </div>
         )}
-        </>
+        </Fragment>
       ))}
       
       {/* Observer target for infinite scroll */}
