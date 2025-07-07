@@ -19,6 +19,7 @@
     "plyr": "^3.7.8",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-owl-carousel": "^2.3.3"
+    "react-owl-carousel": "^2.3.3",
+    "sharp": "^0.34.2"
   }
 }

@@ -1,5 +1,5 @@
 ---
-import { ClientRouter } from "astro:transitions";
+//import { ClientRouter, fade } from "astro:transitions";
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -10,7 +10,7 @@ const rel = Astro.url;
 const image = meta.image
 ---
 
-<html lang="en" transition:name="root" transition:animate="none">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -39,7 +39,7 @@ const image = meta.image
 		<!-- End meta SEO Twitter -->
 		<meta name="referrer" content="strict-origin-when-cross-origin" />
 
-		<ClientRouter />
+		<!-- <ClientRouter /> -->
 		 <!-- JS -->
 		<script src="/js/jquery-3.5.1.min.js" type="module"></script>
 		<script src="/js/bootstrap.bundle.min.js" type="module"></script>

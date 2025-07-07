@@ -6,7 +6,7 @@ import LoadMore from '../components/LoadMore';
 import MovieHot from '../components/MovieHot';
 
 const domainApi = import.meta.env.PUBLIC_API_GO_URL;
-const apiKey = import.meta.env.PUBLIC_API_KEY
+const apiKey 	= import.meta.env.PUBLIC_API_KEY
 const moviesHot = await fetch(domainApi + '/api/v1/movie/hot', {
   method: 'GET',
   headers: {
@@ -68,13 +68,13 @@ const datas = await fetch(`${domainApi}/api/v1/movie?page=${currentPage}&page_si
 						</div>
 					</div>
 					<MovieList movies={datas.data.movies} client:load />
-					<LoadMore domain={domainApi} initialPage={currentPage} client:load/>
+					<LoadMore initialPage={currentPage} client:load/>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- end catalog -->
 	<!-- themes -->
-	<MovieTheme client:only />
+	<MovieTheme client:only="react" />
 	<!-- end themes -->
 </BaseLayout>
