@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-
+const domainApi = import.meta.env.PUBLIC_API_GO_URL;
+const apiKey    = import.meta.env.PUBLIC_API_KEY;
 export default function Search() {
   const [query, setQuery]     = useState("");
   const [results, setResults] = useState<any[]>([]);
   const [isOpen, setIsOpen]   = useState(false);
-  const API_URL               = import.meta.env.PUBLIC_API_GO_URL;
+  
   useEffect(() => {
     if (!query) {
       setIsOpen(false);
@@ -12,10 +13,15 @@ export default function Search() {
       return;
     }
     const timeout = setTimeout(() => {
-      fetch(API_URL + `/api/v1/_search?p=${encodeURIComponent(query)}`)
-        .then(res => res.json())
-        .then(data => {
-          setResults(data.movies);
+      fetch(domainApi + `/api/v1/search?query=${encodeURIComponent(query)}`, {
+        method: 'GET',
+        headers:{
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey
+        }
+      }).then(res => res.json())
+      .then(datas => {
+          setResults(datas.data);
           setIsOpen(true); // Mở popup
         })
         .catch(err => console.error(err));
@@ -56,11 +62,11 @@ export default function Search() {
         </button>
         <div className="popup-content">
           <div className="title-main">Danh sách phim</div>
-          {results.length > 0 ? (
+          {results && results.length > 0 ? (
             results.map((movie, idx) => (
             <a href={movie.type == 'single' ? '/movie/' + movie.slug : '/tv-series/' + movie.slug} key={idx}>
               <div className="movie-card">
-                <img className="poster" src={ 'https://wsrv.nl/?url=' + movie.image.poster + '&format=webp&quality=50&output=webp'} alt={movie.name} loading="lazy" decoding="async"/>
+                <img className="poster" src={ 'https://wsrv.nl/?url=' + movie.image.poster + '&format=webp&quality=50&output=webp'} alt={movie.name} loading="lazy" decoding="sync"/>
                 <div className="card-details">
                     <div>
                         <div className="movie-title">{movie.name}</div>
