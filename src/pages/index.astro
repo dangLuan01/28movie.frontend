@@ -1,12 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import MovieList from '../components/MovieList';
+import CatalogMovie from '../components/CatalogMovie';
 import MovieTheme from '../components/MovieTheme';
-import LoadMore from '../components/LoadMore';
 import MovieHot from '../components/MovieHot';
 
 const domainApi = import.meta.env.PUBLIC_API_GO_URL;
 const apiKey 	= import.meta.env.PUBLIC_API_KEY
+
 const moviesHot = await fetch(domainApi + '/api/v1/movie/hot', {
   method: 'GET',
   headers: {
@@ -14,6 +14,7 @@ const moviesHot = await fetch(domainApi + '/api/v1/movie/hot', {
     'x-api-key': apiKey
   }
 }).then((response) => response.json());
+
 const genres = await fetch(domainApi + '/api/v1/genre', {
   method: 'GET',
   headers: {
@@ -21,58 +22,24 @@ const genres = await fetch(domainApi + '/api/v1/genre', {
     'x-api-key': apiKey
   }
 }).then((response) => response.json());
+
 const currentPage =  parseInt('1');
-const datas = await fetch(`${domainApi}/api/v1/movie?page=${currentPage}&page_size=18`, {
+
+const datas = await fetch(`${domainApi}/api/v1/movie/catalog?page=${currentPage}&page_size=18`, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
     'x-api-key': apiKey
   }
 }).then((data) => data.json());
-
 ---
 
- <BaseLayout title="28MOVIE" description="Home page">
+<BaseLayout title="28MOVIE" description="Home page">
 	<!-- home -->
 	<MovieHot moviesHot={moviesHot.data} client:load />
 	<!-- end home -->
 	<!-- catalog -->
-	<div class="catalog">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<div class="catalog__nav">
-						<div class="catalog__select-wrap">
-							<select class="catalog__select" name="genres">
-								<option value="all">All genres</option>
-								{genres.data.map((genre:any)=>
-									<option value={genre.slug}>{genre.name}</option>
-								)}
-							</select>
-							<select class="catalog__select" name="years">
-								<option value="All the years">All the years</option>
-								<option value="1">'50s</option>
-								<option value="2">'60s</option>
-								<option value="3">'70s</option>
-								<option value="4">'80s</option>
-								<option value="5">'90s</option>
-								<option value="6">2000-10</option>
-								<option value="7">2010-20</option>
-								<option value="8">2021</option>
-							</select>
-						</div>
-						<div class="slider-radio">
-							<input type="radio" name="grade" id="featured" checked="checked" /><label for="featured">Featured</label>
-							<input type="radio" name="grade" id="popular" /><label for="popular">Popular</label>
-							<input type="radio" name="grade" id="newest" /><label for="newest">Newest</label>
-						</div>
-					</div>
-					<MovieList movies={datas.data.movies} client:load />
-					<LoadMore initialPage={currentPage} client:load/>
-				</div>
-			</div>
-		</div>
-	</div>
+	<CatalogMovie genres={genres.data} initialMovies={datas.data.movies} initialGrade="featured" client:load />
 	<!-- end catalog -->
 	<!-- themes -->
 	<MovieTheme client:only="react" />

@@ -1,17 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 const domainApi = import.meta.env.PUBLIC_API_GO_URL;
 const apiKey    = import.meta.env.PUBLIC_API_KEY;
 export default function Search() {
   const [query, setQuery]     = useState("");
   const [results, setResults] = useState<any[]>([]);
   const [isOpen, setIsOpen]   = useState(false);
-  
+  const popupContentRef       = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (!query) {
       setIsOpen(false);
       setResults([]);
       return;
     }
+    
     const timeout = setTimeout(() => {
       fetch(domainApi + `/api/v1/search?query=${encodeURIComponent(query)}`, {
         method: 'GET',
@@ -22,7 +24,14 @@ export default function Search() {
       }).then(res => res.json())
       .then(datas => {
           setResults(datas.data);
-          setIsOpen(true); // Mở popup
+          setIsOpen(true);
+
+          setTimeout(() => {
+          popupContentRef.current?.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+        }, 0);
         })
         .catch(err => console.error(err));
     }, 1000); // chờ 1s
@@ -60,7 +69,7 @@ export default function Search() {
         <button className="close-btn" onClick={() => setIsOpen(false)}>
           &times;
         </button>
-        <div className="popup-content">
+        <div className="popup-content" ref={popupContentRef}>
           <div className="title-main">Danh sách phim</div>
           {results && results.length > 0 ? (
             results.map((movie, idx) => (

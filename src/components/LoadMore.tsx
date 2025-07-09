@@ -1,6 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 const apiKey    = import.meta.env.PUBLIC_API_KEY
-const domainApi = import.meta.env.PUBLIC_API_GO_URL;
 type Movie = {
     name: string;
     origin_name: string;
@@ -11,17 +10,22 @@ type Movie = {
     rating: number;
     genres: {name:string};
 };
-export default function LoadMore({ initialPage }: { initialPage: number }) {
+export default function LoadMore({ url, initialPage }: { url: string, initialPage: number }) {
     const pageSize              = 18;
     const [page, setPage]       = useState(initialPage + 1);
     const [loading, setLoading] = useState(false);
     const [movies, setMovies]   = useState<Movie[]>([]);
 
+    useEffect(() => {
+        setMovies([]);
+        setPage(initialPage + 1);
+    }, [url, initialPage]);
+    
     async function handleLoadMore() {
         if (loading) return;
         setLoading(true);
         try {
-            const res = await fetch(domainApi + `/api/v1/movie?page=${page}&page_size=${pageSize}`, {
+            const res = await fetch(url + `&page=${page}&page_size=${pageSize}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

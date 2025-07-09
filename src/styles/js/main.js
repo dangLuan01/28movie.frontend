@@ -136,7 +136,6 @@ $(document).ready(function () {
   $(".catalog__select").select2({
     minimumResultsForSearch: Infinity,
   });
-
   /*==============================
 	Carousel
 	==============================*/
