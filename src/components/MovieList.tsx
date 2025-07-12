@@ -1,13 +1,18 @@
+type Genre = {
+  slug: string;
+  name: string;
+};
+
 type Movie = {
-    name: string;
-    origin_name: string;
-    slug: string;
-    image: { poster: string };
-    type: string;
-    release_date: string;
-    rating: number;
-    genres: {name:string};
-}
+  name: string;
+  origin_name: string;
+  slug: string;
+  image: { poster: string };
+  type: string;
+  release_date: string;
+  rating: number;
+  genres: { name: string }[];
+};
 export default function MovieList({movies}: {movies:Movie[]}) {
     return (
         <>

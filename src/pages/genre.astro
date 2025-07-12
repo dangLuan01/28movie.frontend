@@ -46,7 +46,7 @@ const data = await fetch(domainApi + '/api/v1/genre',{
                       alt={genre.name}/>
                   </div>
                   <h3 class="category__title" >{genre.name}</h3>
-                  <span class="category__value">{genre.total_movies}</span>
+                  <span class="category__value">{genre.total}</span>
                 </a>
             </div>
           ))}

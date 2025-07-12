@@ -9,6 +9,12 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone',
   }),
+  //Open Network
+  // server:
+  // {
+  //   host: true,
+  //   open: true
+  // }
   //Setup xss
   // experimental:({
   //   csp:true
