@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 const apiKey    = import.meta.env.PUBLIC_API_KEY
+
 type Movie = {
     name: string;
     origin_name: string;
