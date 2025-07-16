@@ -17,7 +17,7 @@ export default function Search() {
     const timeout = setTimeout(() => {
       fetch(domainApi + `/api/v1/search?query=${encodeURIComponent(query)}`, {
         method: 'GET',
-        headers:{
+        headers: {
           'Content-Type': 'application/json',
           'x-api-key': apiKey
         }
@@ -34,7 +34,7 @@ export default function Search() {
         }, 0);
         })
         .catch(err => console.error(err));
-    }, 1000); // chờ 1s
+    }, 800); // wait 800ms
 
     return () => clearTimeout(timeout); // clear nếu gõ tiếp
   }, [query]);

@@ -81,7 +81,12 @@ export default function LoadMore({ url, initialPage }: { url: string, initialPag
                                 </a>
                             </h2>
                             <ul className="card__list">
-                                <li>Free</li>
+                                 {movie.type == 'single' ? (
+                                    <li>Full</li>
+                                    ):(
+                                        <li>{movie.episode == movie.episode_total ? movie.episode + '/' + movie.episode_total : 'Tập ' + movie.episode + '/' + movie.episode_total}</li>
+                                    )
+                                }   
                                 <li>{movie.genres[0]?.name}</li>
                                 <li>{movie.release_date}</li>
                             </ul>

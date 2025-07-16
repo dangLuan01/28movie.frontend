@@ -48,14 +48,14 @@ export default function CatalogMovie({
 
   const yearOptions = [
     { value: "", label: "All the years" },
-    { value: "1950-1959", label: "'50s" },
-    { value: "1960-1969", label: "'60s" },
-    { value: "1970-1979", label: "'70s" },
-    { value: "1980-1989", label: "'80s" },
-    { value: "1990-1999", label: "'90s" },
-    { value: "2000-2009", label: "2000-10" },
-    { value: "2010-2019", label: "2010-20" },
     { value: "2020-2029", label: "2020-30" },
+    { value: "2010-2019", label: "2010-20" },
+    { value: "2000-2009", label: "2000-10" }, 
+    { value: "1990-1999", label: "'90s" },
+    { value: "1980-1989", label: "'80s" },
+    { value: "1970-1979", label: "'70s" },    
+    { value: "1960-1969", label: "'60s" },
+    { value: "1950-1959", label: "'50s" },
   ]
 
   const handleChange = async (
@@ -112,7 +112,7 @@ export default function CatalogMovie({
   }),
   menu: (base:any) => ({
     ...base,
-    backgroundColor: "#0e1a2b",      // nền xanh đậm
+    backgroundColor: "#0e1a2b",
     borderRadius: "8px",
     marginTop: "4px",
     zIndex: 9999
@@ -120,7 +120,7 @@ export default function CatalogMovie({
   option: (base:any, state:any) => ({
     ...base,
     backgroundColor: state.isFocused
-      ? "#0e1a2b"   // xanh sáng khi hover
+      ? "#0e1a2b"
       : "transparent",
     color: state.isFocused ? "#2f80ed" : "#ffffff",
     cursor: "pointer",
