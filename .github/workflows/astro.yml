@@ -30,7 +30,7 @@ jobs:
           cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Build
         run: pnpm run build
@@ -39,13 +39,3 @@ jobs:
         run: pnpm astro check
         # If your package.json defines test:check-examples as a custom script, replace with:
         # run: pnpm run test:check-examples
-
-      - name: Upload logs on failure
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-logs
-          path: |
-            dist/
-            *.log
-          retention-days: 7
