@@ -18,24 +18,34 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
+      - name: List directory contents
+        run: ls -la
+        # Helps debug if package-lock.json is present
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
+          cache: npm
 
       - name: Install dependencies
-        run: pnpm install
+        run: npm ci
+        # npm ci ensures a clean install using package-lock.json
 
       - name: Build
-        run: pnpm run build
+        run: npm run build
 
       - name: Astro Check
-        run: pnpm astro check
-        # If your package.json defines test:check-examples as a custom script, replace with:
-        # run: pnpm run test:check-examples
+        run: npm run astro check
+        # If your package.json defines test:check-examples, use:
+        # run: npm run test:check-examples
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            dist/
+            *.log
+          retention-days: 7
