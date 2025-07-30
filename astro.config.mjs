@@ -10,11 +10,11 @@ export default defineConfig({
     mode: 'standalone',
   }),
   //Open Network
-  // server:
-  // {
-  //   host: true,
-  //   open: true
-  // }
+  server:
+  {
+    host: true,
+    open: true
+  }
   //Setup xss
   // experimental:({
   //   csp:true
