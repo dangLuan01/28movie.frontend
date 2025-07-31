@@ -8,6 +8,11 @@ services:
     # env_file: .env
     ports:
       - "4321:4321"
+    environment:
+      - VIRTUAL_HOST=www.nestphim.site
+      - LETSENCRYPT_HOST=www.nestphim.site
+      - LETSENCRYPT_EMAIL=ml2673572@gmail.com
+      - VIRTUAL_PORT=4321
     networks:
       - app-network
 networks:
