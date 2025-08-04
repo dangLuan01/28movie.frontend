@@ -9,8 +9,8 @@ services:
     ports:
       - "4321:4321"
     environment:
-      - VIRTUAL_HOST=www.nestphim.site
-      - LETSENCRYPT_HOST=www.nestphim.site
+      - VIRTUAL_HOST=www.xoailac.top
+      - LETSENCRYPT_HOST=www.xoailac.top
       - LETSENCRYPT_EMAIL=ml2673572@gmail.com
       - VIRTUAL_PORT=4321
     networks:
