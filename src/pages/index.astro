@@ -34,7 +34,7 @@ const datas = await fetch(`${domainApi}/api/v1/movie/catalog?page=${currentPage}
 }).then((data) => data.json());
 ---
 
-<BaseLayout title="28MOVIE" description="Home page">
+<BaseLayout title="Xoai Lac TV" description="Home page">
 	<!-- home -->
 	<MovieHot moviesHot={moviesHot.data} client:load />
 	<!-- end home -->
