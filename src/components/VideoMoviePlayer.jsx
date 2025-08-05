@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Plyr from 'plyr';
 //import 'plyr/dist/plyr.css';
 
-const VideoPlayer = ({ servers }) => {
+const VideoPlayer = ({ servers, thumbnail }) => {
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
   const plyrRef = useRef(null);
@@ -45,7 +45,7 @@ const VideoPlayer = ({ servers }) => {
   }, [currentUrl]);
   return (
     <div className="col-12 col-xl-8">
-      <video ref={videoRef} id="player" controls playsInline/>
+      <video ref={videoRef} id="player" controls playsInline poster={thumbnail}/>
       <div className="article__actions article__actions--details" style={{ marginTop: 10 }}>
         <div className="article__download">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
