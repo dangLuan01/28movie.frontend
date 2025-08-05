@@ -75,7 +75,7 @@ export default function Search() {
             results.map((movie, idx) => (
             <a href={movie.type == 'single' ? '/movie/' + movie.slug : '/tv-series/' + movie.slug} key={idx}>
               <div className="movie-card">
-                <img className="poster" src={ 'https://wsrv.nl/?url=' + movie.image.poster + '&format=webp&quality=50&output=webp'} alt={movie.name} loading="lazy" decoding="sync"/>
+                <img className="poster" src={ 'https://wsrv.nl/?url=' + movie.image.poster } alt={movie.name} decoding="auto"/>
                 <div className="card-details">
                     <div>
                         <div className="movie-title">{movie.name}</div>

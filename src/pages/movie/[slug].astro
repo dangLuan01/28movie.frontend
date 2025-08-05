@@ -20,11 +20,11 @@ const movie =datas.data
 <BaseLayout title={'Xem phim ' + movie.name + ' ('+ movie.release_date +')' + ' - ' + movie.origin_name}
     meta={{ 
       description: movie.name + ' ('+ movie.release_date +')' + ' - ' + movie.content,
-      image: movie.image.thumb
+      image: imageSrc + movie.image.thumb
     }}>
     <!-- details -->
     <section class="section section--head section--head-fixed section--gradient section--details-bg">
-      <div class="section__bg" data-bg={imageSrc + movie.image.thumb + "&format=webp&quality=30&output=webp"}></div>
+      <div class="section__bg" data-bg={ imageSrc + movie.image.thumb }></div>
       <div class="container">
         <!-- article -->
         <div class="article">
@@ -62,7 +62,7 @@ const movie =datas.data
               <!-- end article content -->
             </div>
             <!-- video player -->
-           <VideoPlayer client:only="react" servers={movie.servers} />
+           <VideoPlayer client:only="react" servers={ movie.servers } thumbnail={ imageSrc + movie.image.thumb } />
             <!-- end video player -->
             <div class="col-12 col-xl-8">
               <!-- categories -->
