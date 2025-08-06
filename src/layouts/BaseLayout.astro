@@ -50,11 +50,6 @@ const image = meta.image
 					"@type": "WebSite",
 					"name": "Xoai Lac TV",
 					"url": "https://www.xoailac.top/",
-					"potentialAction": {
-					// "@type": "SearchAction",
-					// "target": "https://www.xoailac.top/search?q={search_term_string}",
-					// "query-input": "required name=search_term_string"
-					}
 				},
 				{
 					"@context": "https://schema.org",
@@ -72,7 +67,7 @@ const image = meta.image
 			]
 		</script>
 		{ jsonLd && 
-		 	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+		<script type="application/ld+json" set:html={jsonLd} />
 		}
 		<!-- endSeoSchemaHoamePage -->
 	</head>
