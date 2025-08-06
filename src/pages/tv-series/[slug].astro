@@ -17,12 +17,36 @@ const datas = await fetch(domainApi + `/api/v1/movie/${slug}`, {
   }
 }).then((response) => response.json());
 const movie = datas.data
+const jsonLd = JSON.stringify(
+  {
+    "@context": "https://schema.org",
+    "@type": "TVSeries",
+    "name": movie.name,
+    "alternateName": movie.origin_name,
+    "image": imageSrc + movie.image.thumb,
+    "description": movie.content,
+    "url": `https://www.xoailac.top/tv-series/${movie.slug}`,
+    "genre": movie.genres.map((genre: any) => genre.name),
+    "dateCreated": movie.release_date,
+    "duration": movie.runtime,
+    "contentRating": movie.age ? movie.age : '16+',
+    "trailer": {
+      "@type": "VideoObject",
+      "name": movie.name + ' Trailer',
+      "embedUrl": movie.trailer
+    },
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": movie.rating,
+    },
+  }
+);
 ---
 <BaseLayout title={'Xem phim ' + movie?.name + ' ('+ movie?.release_date +')' + ' - ' + movie?.origin_name}
     meta={{ 
       description: movie?.name + ' ('+ movie?.release_date +')' + ' - ' + movie?.content,
       image: imageSrc + movie.image.thumb
-    }}>
+    }} jsonLd={jsonLd}>
  <!-- details -->
     <section class="section section--head section--head-fixed section--gradient section--details-bg">
       <div class="section__bg" data-bg={ imageSrc + movie.image.thumb }></div>

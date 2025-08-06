@@ -34,7 +34,8 @@ const datas = await fetch(`${domainApi}/api/v1/movie/catalog?page=${currentPage}
 }).then((data) => data.json());
 ---
 
-<BaseLayout title="Xoai Lac TV" description="Home page">
+<BaseLayout title="Xoai Lac TV" description="Xem phim online chất lượng cao, cập nhật phim mới nhanh nhất tại Xoai Lac TV. Thư viện phim bộ, phim lẻ, phim chiếu rạp đa dạng thể loại."
+  genres={genres.data} >
 	<!-- home -->
 	<MovieHot moviesHot={moviesHot.data} client:load />
 	<!-- end home -->
