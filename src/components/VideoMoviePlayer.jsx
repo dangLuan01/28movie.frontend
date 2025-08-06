@@ -26,6 +26,28 @@ const VideoPlayer = ({ servers, thumbnail }) => {
         hls.loadSource(currentUrl);
         hls.attachMedia(video);
         hlsRef.current = hls;
+
+        video.addEventListener('loadedmetadata', () => {
+         
+        });
+
+        const skipRanges = [
+          { start: 587, end: 632 },
+          { start: 2432, end: 2466 },
+          { start: 4862, end: 4897 },
+        ];
+
+        video.addEventListener('timeupdate', () => {
+          const current = video.currentTime;
+
+          for (const range of skipRanges) {
+            if (current >= range.start && current < range.end) {
+              video.currentTime = range.end;
+              break;
+            }
+          }
+        });
+
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = currentUrl;
       }
