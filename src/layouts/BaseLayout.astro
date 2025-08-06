@@ -4,8 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 const { meta = {} } = Astro.props;
-const { title } = Astro.props;
-const description = meta.description || "Xoai Lac TV Chillout.";
+const { title, genres, jsonLd } = Astro.props;
+const description = meta.description || "Xem phim online chất lượng cao, cập nhật phim mới nhanh nhất tại Xoai Lac TV. Thư viện phim bộ, phim lẻ, phim chiếu rạp đa dạng thể loại.";
 const rel = Astro.url;
 const image = meta.image
 ---
@@ -42,6 +42,39 @@ const image = meta.image
 
 		<!-- <ClientRouter /> -->
 		<meta name="google-site-verification" content="Q-yKVDruiBc1qqNbeO6Yw9wLPoLfaUpjt6mbQtIpobE" />
+		<!-- seoSchemaHomePage -->
+		<script type="application/ld+json">
+			[
+				{
+					"@context": "https://schema.org",
+					"@type": "WebSite",
+					"name": "Xoai Lac TV",
+					"url": "https://www.xoailac.top/",
+					"potentialAction": {
+					// "@type": "SearchAction",
+					// "target": "https://www.xoailac.top/search?q={search_term_string}",
+					// "query-input": "required name=search_term_string"
+					}
+				},
+				{
+					"@context": "https://schema.org",
+					"@type": "Organization",
+					"name": "Xoai Lac TV",
+					"url": "https://www.xoailac.top/",
+					"logo": "https://www.xoailac.top/images/logo.svg",
+					"sameAs": [
+					"https://www.facebook.com/xoailactv",
+					"https://twitter.com/xoailactv",
+					"https://www.instagram.com/xoailactv",
+					"https://www.tiktok.com/@xoailactv"
+					]
+				}
+			]
+		</script>
+		{ jsonLd && 
+		 	<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+		}
+		<!-- endSeoSchemaHoamePage -->
 	</head>
 	<body>
 		<!-- header (relative style) -->
@@ -53,7 +86,7 @@ const image = meta.image
 		</main>
         <!-- end main content --> 
         <!-- footer -->
-		<Footer />
+		<Footer genres={genres}/>
         <!-- end footer -->
 		<!-- JS -->
 		<script src="/js/jquery-3.5.1.min.js" type="module"></script>
