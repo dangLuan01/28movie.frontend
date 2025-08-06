@@ -27,7 +27,7 @@ const jsonLd = JSON.stringify(
     "description": movie.content,
     "url": `https://www.xoailac.top/tv-series/${movie.slug}`,
     "genre": movie.genres.map((genre: any) => genre.name),
-    "dateCreated": movie.release_date,
+    "datePublished": movie.release_date,
     "duration": movie.runtime,
     "contentRating": movie.age ? movie.age : '16+',
     "trailer": {
