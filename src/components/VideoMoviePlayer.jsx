@@ -28,7 +28,16 @@ const VideoPlayer = ({ servers, thumbnail }) => {
         hlsRef.current = hls;
 
         video.addEventListener('loadedmetadata', () => {
-         
+          if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+              artwork: [
+                {
+                  src: thumbnail,
+                  type: 'image/jpeg',
+                },
+              ],
+            });
+          }
         });
 
         const skipRanges = [
