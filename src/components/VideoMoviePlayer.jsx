@@ -76,7 +76,7 @@ const VideoPlayer = ({ servers, thumbnail }) => {
   }, [currentUrl]);
   return (
     <div className="col-12 col-xl-8">
-      <video ref={videoRef} id="player" controls playsInline poster={thumbnail}/>
+      <video ref={videoRef} id="player" controls playsInline poster={thumbnail + '&w=1280&h=480'}/>
       <div className="article__actions article__actions--details" style={{ marginTop: 10 }}>
         <div className="article__download">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
