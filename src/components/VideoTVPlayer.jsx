@@ -60,10 +60,30 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
       if (!isMounted) return;
 
       if (Hls.isSupported()) {
-        const hls = new Hls();
+        const hls = new Hls({
+          renderTextTracksNatively: false
+        });
         hls.loadSource(currentUrl);
         hls.attachMedia(video);
         hlsRef.current = hls;
+
+        hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, (event, data) => {
+          [...video.querySelectorAll("track")].forEach(t => t.remove());
+
+          data.subtitleTracks.forEach((sub, i) => {
+            const trackEl   = document.createElement("track");
+            trackEl.kind    = "subtitles";
+            trackEl.label   = sub.name || "Vietnamese";
+            trackEl.srclang = sub.lang || "vi";
+            trackEl.src     = sub.url;
+            trackEl.default = i === 0;
+            video.appendChild(trackEl);
+          });
+
+          if (plyrRef.current) {
+            plyrRef.current.captions.update();
+          }
+        });
 
         video.addEventListener('loadedmetadata', () => {
           if ('mediaSession' in navigator) {
@@ -100,7 +120,9 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
       }
 
       if (!plyrRef.current) {
-        plyrRef.current = new Plyr(video);
+        plyrRef.current = new Plyr(video,{
+          captions: { active: true, update: true, language: 'auto' }
+        });
       }
     });
 
