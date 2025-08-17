@@ -22,11 +22,30 @@ const VideoPlayer = ({ servers, thumbnail }) => {
       if (!isMounted) return;
 
       if (Hls.isSupported()) {
-        const hls = new Hls();
+        const hls = new Hls({
+          renderTextTracksNatively: false
+        });
         hls.loadSource(currentUrl);
         hls.attachMedia(video);
         hlsRef.current = hls;
 
+        hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, (event, data) => {
+          [...video.querySelectorAll("track")].forEach(t => t.remove());
+
+          data.subtitleTracks.forEach((sub, i) => {
+            const trackEl   = document.createElement("track");
+            trackEl.kind    = "subtitles";
+            trackEl.label   = sub.name || "Vietnamese";
+            trackEl.srclang = sub.lang || "vi";
+            trackEl.src     = sub.url;
+            trackEl.default = i === 0;
+            video.appendChild(trackEl);
+          });
+
+          if (plyrRef.current) {
+            plyrRef.current.captions.update();
+          }
+        });
         video.addEventListener('loadedmetadata', () => {
           if ('mediaSession' in navigator) {
             navigator.mediaSession.metadata = new MediaMetadata({
@@ -62,7 +81,9 @@ const VideoPlayer = ({ servers, thumbnail }) => {
       }
 
       if (!plyrRef.current) {
-        plyrRef.current = new Plyr(video);
+        plyrRef.current = new Plyr(video, {
+          captions: { active: true, update: true, language: 'auto' }
+        });
       }
     });
 
@@ -76,7 +97,7 @@ const VideoPlayer = ({ servers, thumbnail }) => {
   }, [currentUrl]);
   return (
     <div className="col-12 col-xl-8">
-      <video ref={videoRef} id="player" controls playsInline poster={thumbnail + '&w=1280&h=480'}/>
+      <video ref={videoRef} id="player" controls playsInline poster={thumbnail + '&w=1280&h=480'} crossOrigin="anonymous"/>
       <div className="article__actions article__actions--details" style={{ marginTop: 10 }}>
         <div className="article__download">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
