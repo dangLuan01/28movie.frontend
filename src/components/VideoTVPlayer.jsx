@@ -61,11 +61,43 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
 
       if (Hls.isSupported()) {
         const hls = new Hls({
-          renderTextTracksNatively: false
+          renderTextTracksNatively: false,
+          maxBufferLength: 30,
+          maxMaxBufferLength: 60,
+          nudgeMaxRetry: 5,
+          fragLoadingTimeOut: 20000,
+          fragLoadingMaxRetry: 6,
+          enableWorker: true,
+          lowLatencyMode: true,
+          startPosition: -1,
         });
         hls.loadSource(currentUrl);
         hls.attachMedia(video);
         hlsRef.current = hls;
+
+        hls.on(Hls.Events.MANIFEST_PARSED, function (even, data) {
+          const skipConfig = {
+            "https://vip.opstream90.com": [
+              { start: 587, end: 632 },
+              { start: 2432, end: 2466 },
+              { start: 4862, end: 4897 },
+            ],
+          };
+
+          const domain      = new URL(data.levels[0].url[0]).origin;
+          const skipRanges  = skipConfig[domain] || [];
+          if (skipRanges.length > 0) {
+            video.addEventListener('timeupdate', () => {
+              const current = video.currentTime;
+              for (const range of skipRanges) {
+                if (current >= range.start && current < range.end) {
+                  video.currentTime = range.end;
+                  break;
+                }
+              }
+            });
+          }
+        });
 
         hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, (event, data) => {
           [...video.querySelectorAll("track")].forEach(t => t.remove());
@@ -97,22 +129,10 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
             });
           }
         });
-        
-        const skipRanges = [
-          { start: 587, end: 632 },
-          { start: 2432, end: 2466 },
-          { start: 4862, end: 4897 },
-        ];
 
-        video.addEventListener('timeupdate', () => {
-          const current = video.currentTime;
-
-          for (const range of skipRanges) {
-            if (current >= range.start && current < range.end) {
-              video.currentTime = range.end;
-              break;
-            }
-          }
+        video.addEventListener('seeking', () => {
+          const currentTime = video.currentTime;
+          hls.startLoad(currentTime);
         });
         
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
