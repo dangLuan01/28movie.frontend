@@ -9,7 +9,7 @@ const domainApi = import.meta.env.PUBLIC_API_GO_URL;
 const apiKey    = import.meta.env.PUBLIC_API_KEY
 
 // Fetch movie details based on slug
-const datas = await fetch(domainApi + `/api/v1/movie/${slug}`, {
+const datas = await fetch(domainApi + `/api/v1/movie/${slug}?type=series`, {
   method: 'GET',
   headers: {
     'Content-Type': 'application/json',
