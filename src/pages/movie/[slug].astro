@@ -47,9 +47,9 @@ const jsonLd = JSON.stringify(
   }
 );
 ---
-<BaseLayout title={'Xem phim ' + movie.name + ' ('+ movie.release_date +')' + ' - ' + movie.origin_name}
+<BaseLayout title={movie.name +' ('+ movie.origin_name +')' +' - Vietsub ('+ movie.release_date +')'}
     meta={{ 
-      description: 'Xem phim ' + movie.name + ' ('+ movie.release_date +')' + ' - ' + movie.content,
+      description: movie.name + ' ('+ movie.origin_name +')' +': ' + movie.content,
       image: imageSrc + movie.image.thumb
     }} jsonLd={jsonLd}>
     <!-- details -->
