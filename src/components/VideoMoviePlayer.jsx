@@ -39,11 +39,11 @@ const VideoPlayer = ({ servers, thumbnail }) => {
 
         hls.on(Hls.Events.MANIFEST_PARSED, function (even, data) {
           const skipConfig = {
-            "https://vip.opstream90.com": [
-              { start: 587, end: 632 },
-              { start: 2432, end: 2466 },
-              { start: 4862, end: 4897 },
-            ],
+            // "https://vip.opstream90.com": [
+            //   { start: 587, end: 632 },
+            //   { start: 2432, end: 2466 },
+            //   { start: 4862, end: 4897 },
+            // ],
           };
 
           const domain      = new URL(data.levels[0].url[0]).origin;
