@@ -143,10 +143,10 @@ export default function CatalogMovie({
     color: "#ffffff",
     
   }),
-  input: (base:any) => ({
-    ...base,
-    color: "#ffffff",
-  }),
+  // input: (base:any) => ({
+  //   ...base,
+  //   color: "#ffffff",
+  // }),
   };
   const url = domainApi + 
             `/api/v1/movie/catalog?genre=${selectedGenre}&release_date=${selectedYear}&type=${selectedGrade}`;
