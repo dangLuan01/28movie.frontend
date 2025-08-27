@@ -106,14 +106,14 @@ if (!genres) {
 				</a>
 			</div>
 			</div>
-			<div class="col-6 col-md-8 col-lg-6 col-xl-4 order-3 order-md-2 order-lg-1 order-xl-3 offset-md-2 offset-lg-0 offset-xl-1">
+			<div class="col-12 col-md-8 col-lg-6 col-xl-4 order-3 order-md-2 order-lg-1 order-xl-3 offset-md-2 offset-lg-0 offset-xl-1">
 				<div class="row">
 					<div class="col-12">
 						<h6 class="footer__title">Thể loại</h6>
 					</div>
 					<div class="col-6">
 						<div class="footer__nav">
-							{genres && genres.slice(0, 6).map((genre) => (
+							{genres && genres.slice(0, 5).map((genre) => (
 								<a href={`/genre/${genre.slug}`}>{genre.name}</a>
 							))}
 						</div>
@@ -158,8 +158,8 @@ if (!genres) {
 						<a href="#privacy">Privacy policy</a>
 						<a href="#terms">Terms and conditions</a>
 					</div>
-					<small class="footer__copyright">© FlixTV.template, {year}. Created by
-						<a href="#xoailac" target="_blank">XoailacTV</a>.
+					<small class="footer__copyright">© Xoai Lac, {year}. Created by
+						<a href="#xoailac" target="_blank"><h1>Xoailac.top</h1></a>
 					</small>
 				</div>
 			</div>
