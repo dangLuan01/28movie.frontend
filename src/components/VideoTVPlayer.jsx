@@ -56,6 +56,23 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
       hlsRef.current = null;
     }
 
+    const skipRangesRef = { current: [] };
+
+    function onTimeUpdate() {
+      const skipRanges = skipRangesRef.current;
+      if (!skipRanges.length) return;
+      const current = video.currentTime;
+      for (const range of skipRanges) {
+        if (current >= range.start && current < range.end) {
+      
+          video.currentTime = range.end;
+          break;
+        }
+      }
+    }
+
+    video.addEventListener("timeupdate", onTimeUpdate);
+
     import('hls.js').then(({ default: Hls }) => {
       if (!isMounted) return;
 
@@ -75,28 +92,22 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
         hls.attachMedia(video);
         hlsRef.current = hls;
 
-        hls.on(Hls.Events.MANIFEST_PARSED, function (even, data) {
-          const skipConfig = {
-            // "https://vip.opstream90.com": [
-            //   { start: 587, end: 632 },
-            //   { start: 2432, end: 2466 },
-            //   { start: 4862, end: 4897 },
-            // ],
-          };
+        const skipConfig = {
+          "https://vip.opstream90.com": [
+            { start: 596, end: 632 },
+            { start: 2432, end: 2466 },
+            { start: 4862, end: 4897 },
+          ],
+          "https://vip.opstream10.com": [
+            { start: 596, end: 632 },
+            { start: 2432, end: 2466 },
+            { start: 4862, end: 4897 },
+          ],
+        };
 
-          const domain      = new URL(data.levels[0].url[0]).origin;
-          const skipRanges  = skipConfig[domain] || [];
-          if (skipRanges.length > 0) {
-            video.addEventListener('timeupdate', () => {
-              const current = video.currentTime;
-              for (const range of skipRanges) {
-                if (current >= range.start && current < range.end) {
-                  video.currentTime = range.end;
-                  break;
-                }
-              }
-            });
-          }
+        hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
+          const domain = new URL(data.levels[0].url[0]).origin;
+          skipRangesRef.current = skipConfig[domain] || [];
         });
 
         hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, (event, data) => {
@@ -148,6 +159,9 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
 
     return () => {
       isMounted = false;
+      if (video) {
+        video.removeEventListener("timeupdate", onTimeUpdate);
+      }
       if (hlsRef.current) {
         hlsRef.current.destroy();
         hlsRef.current = null;
