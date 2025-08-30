@@ -165,6 +165,7 @@ export default function CatalogMovie({
                       }}
                       classNamePrefix="catalog__select"
                       styles={customStyles}
+                      isSearchable={false}
                   />
                   <Select 
                       options={yearOptions}
@@ -178,6 +179,7 @@ export default function CatalogMovie({
                       }}
                       classNamePrefix="catalog__select"
                       styles={customStyles}
+                      isSearchable={false}
                   />
               </div>
               <div className="slider-radio">
