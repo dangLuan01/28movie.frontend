@@ -52,7 +52,7 @@ export default function LoadMore({ url, initialPage }: { url: string, initialPag
                         <div className="card">
                             <a href={movie.type === 'single' ? 'movie/' + movie.slug : 'tv-series/' + movie.slug} className="card__cover">
                                 <img
-                                    src={"https://wsrv.nl/?url=" + movie.image.poster }
+                                    src={ movie.image.poster }
                                     alt={movie.origin_name}
                                     loading="lazy"
                                     decoding="async"/>
