@@ -186,7 +186,7 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
   return (
     <>
       <div className="col-12 col-xl-8">
-        <video ref={videoRef} controls playsInline poster={thumbnail + '&w=1280&h=480'}/>
+        <video ref={videoRef} controls playsInline poster={thumbnail} height={480} width={720}/>
         
         <div className="article__actions article__actions--details" style={{ marginTop: 10 }}>
           <div className="">
