@@ -55,7 +55,7 @@ export default function MovieHot({ moviesHot }: { moviesHot: Movie[] }) {
             <div className="embla__slide" key={movie.slug}>
               <div className="home__card">
                     <a href={movie.type == 'single' ? 'movie/' + movie.slug : 'tv-series/' + movie.slug}>
-                    <img src={'https://wsrv.nl/?url='+ movie.image.thumb + '&fit=cover&height=350&width=450&format=webp&quality=70&output=webp'} alt={movie.name} loading='lazy' decoding='auto'/>
+                    <img style={{objectFit: "cover",}} src={ movie.image.thumb } height={350} width={450} alt={movie.name} loading='lazy' decoding='auto'/>
                     </a>
                     <div>
                     <h2>{movie.name}</h2>
