@@ -33,14 +33,15 @@ const jsonLd = JSON.stringify(
       "@type": "VideoObject",
       "name": movie.name + ' Trailer',
       "embedUrl": movie.trailer,
+      "description": movie.content,
       "uploadDate": movie.updated_at,
       "thumbnailUrl": movie.image.thumb
     },
     "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": movie.rating,
-        "ratingCount": 86,
-        "reviewCount": 83,
+        "ratingCount": 0,
+        "reviewCount": 0,
         "bestRating": "10",
         "worstRating": "0"
     },
