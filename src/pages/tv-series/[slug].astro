@@ -6,6 +6,8 @@ import VideoPlayer from "../../components/VideoTVPlayer";
 const { slug }  = Astro.params;
 const domainApi = import.meta.env.PUBLIC_API_GO_URL;
 const apiKey    = import.meta.env.PUBLIC_API_KEY;
+const ratingCount = Math.floor(Math.random() * (5000 - 50 + 1)) + 50;
+const reviewCount = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
 
 // Fetch movie details based on slug
 const datas = await fetch(domainApi + `/api/v1/movie/${slug}?type=series`, {
@@ -40,8 +42,8 @@ const jsonLd = JSON.stringify(
     "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": movie.rating,
-        "ratingCount": 0,
-        "reviewCount": 0,
+        "ratingCount": ratingCount,
+        "reviewCount": reviewCount,
         "bestRating": "10",
         "worstRating": "0"
     },
