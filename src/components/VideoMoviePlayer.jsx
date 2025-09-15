@@ -107,10 +107,29 @@ const VideoPlayer = ({ servers, thumbnail }) => {
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = currentUrl;
       }
-
+      
       if (!plyrRef.current) {
         plyrRef.current = new Plyr(video, {
-          captions: { active: true, update: true, language: 'auto' }
+          settings: ['captions', 'quality', 'speed', 'server'],
+          keyboard: { focused: true, global: true }, 
+          tooltips: { controls: true, seek: true },
+          captions: { active: true, update: true, language: 'auto' },
+          controls: [
+            'play-large',
+            'restart',
+            'rewind',
+            'play',
+            'fast-forward',
+            'progress',
+            'current-time',
+            'duration',
+            'mute',
+            'volume',
+            'captions',
+            'settings',
+            'pip',
+            'fullscreen',
+          ],
         });
       }
     });
