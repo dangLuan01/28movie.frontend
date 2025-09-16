@@ -167,7 +167,7 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
             'current-time',
             'duration',
             'mute',
-            //'volume',
+            'volume',
             'captions',
             'settings',
             //'pip',
