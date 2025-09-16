@@ -124,7 +124,7 @@ const VideoPlayer = ({ servers, thumbnail }) => {
             'current-time',
             'duration',
             'mute',
-            //'volume',
+            'volume',
             'captions',
             'settings',
             //'pip',
