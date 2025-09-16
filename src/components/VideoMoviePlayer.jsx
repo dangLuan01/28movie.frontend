@@ -116,7 +116,7 @@ const VideoPlayer = ({ servers, thumbnail }) => {
           captions: { active: true, update: true, language: 'auto' },
           controls: [
             'play-large',
-            'restart',
+            //'restart',
             'rewind',
             'play',
             'fast-forward',
@@ -124,10 +124,10 @@ const VideoPlayer = ({ servers, thumbnail }) => {
             'current-time',
             'duration',
             'mute',
-            'volume',
+            //'volume',
             'captions',
             'settings',
-            'pip',
+            //'pip',
             'fullscreen',
           ],
         });
