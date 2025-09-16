@@ -159,7 +159,7 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
           captions: { active: true, update: true, language: 'auto' },
           controls: [
             'play-large',
-            'restart',
+            //'restart',
             'rewind',
             'play',
             'fast-forward',
@@ -167,10 +167,10 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
             'current-time',
             'duration',
             'mute',
-            'volume',
+            //'volume',
             'captions',
             'settings',
-            'pip',
+            //'pip',
             'fullscreen',
           ],
         });
