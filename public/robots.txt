@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: /*?
 
 Sitemap: https://www.xoailac.top/sitemap.xml
