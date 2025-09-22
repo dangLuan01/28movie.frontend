@@ -41,7 +41,7 @@ const VideoPlayer = ({ servers, thumbnail }) => {
 
       if (Hls.isSupported()) {
         const hls = new Hls({
-          renderTextTracksNatively: false,
+          renderTextTracksNatively: true,
           maxBufferLength: 30,
           maxMaxBufferLength: 60,
           nudgeMaxRetry: 5,
@@ -66,29 +66,16 @@ const VideoPlayer = ({ servers, thumbnail }) => {
             { start: 2432, end: 2466 },
             { start: 4862, end: 4897 },
           ],
+           "https://vip.opstream13.com": [
+            { start: 596, end: 632 },
+            { start: 2432, end: 2466 },
+            { start: 4862, end: 4897 },
+          ],
         };
 
         hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
           const domain = new URL(data.levels[0].url[0]).origin;
           skipRangesRef.current = skipConfig[domain] || [];
-        });
-
-        hls.on(Hls.Events.SUBTITLE_TRACKS_UPDATED, (event, data) => {
-          [...video.querySelectorAll("track")].forEach(t => t.remove());
-
-          data.subtitleTracks.forEach((sub, i) => {
-            const trackEl   = document.createElement("track");
-            trackEl.kind    = "subtitles";
-            trackEl.label   = sub.name || "Vietnamese";
-            trackEl.srclang = sub.lang || "vi";
-            trackEl.src     = sub.url;
-            trackEl.default = i === 0;
-            video.appendChild(trackEl);
-          });
-
-          if (plyrRef.current) {
-            plyrRef.current.captions.update();
-          }
         });
 
         video.addEventListener('loadedmetadata', () => {
@@ -118,10 +105,9 @@ const VideoPlayer = ({ servers, thumbnail }) => {
           settings: ['captions', 'quality', 'speed', 'server'],
           keyboard: { focused: true, global: true }, 
           tooltips: { controls: true, seek: true },
-          captions: { active: true, update: true, language: 'auto' },
+          captions: { active: true, update: true, language: 'vi' },
           controls: [
             'play-large',
-            //'restart',
             'rewind',
             'play',
             'fast-forward',
