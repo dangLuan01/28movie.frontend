@@ -56,21 +56,21 @@ const VideoPlayer = ({ servers, thumbnail }) => {
         hlsRef.current = hls;
 
         const skipConfig = {
-          "https://vip.opstream90.com": [
-            { start: 587, end: 632 },
-            { start: 2432, end: 2466 },
-            { start: 4862, end: 4897 },
-          ],
-          "https://vip.opstream10.com": [
-            { start: 596, end: 632 },
-            { start: 2432, end: 2466 },
-            { start: 4862, end: 4897 },
-          ],
-           "https://vip.opstream13.com": [
-            { start: 596, end: 632 },
-            { start: 2432, end: 2466 },
-            { start: 4862, end: 4897 },
-          ],
+          // "https://vip.opstream90.com": [
+          //   { start: 587, end: 632 },
+          //   { start: 2432, end: 2466 },
+          //   { start: 4862, end: 4897 },
+          // ],
+          // "https://vip.opstream10.com": [
+          //   { start: 596, end: 632 },
+          //   { start: 2432, end: 2466 },
+          //   { start: 4862, end: 4897 },
+          // ],
+          //  "https://vip.opstream13.com": [
+          //   { start: 596, end: 632 },
+          //   { start: 2432, end: 2466 },
+          //   { start: 4862, end: 4897 },
+          // ],
         };
 
         hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
