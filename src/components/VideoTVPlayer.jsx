@@ -4,7 +4,7 @@ import Plyr from 'plyr';
 
 const VideoPlayer   = ({ movie, thumbnail }) => {
   
-  const imgSrc      = import.meta.env.PUBLIC_URL_WSRV;
+  // const imgSrc      = import.meta.env.PUBLIC_URL_WSRV;
   const videoRef    = useRef(null);
   const hlsRef      = useRef(null);
   const plyrRef     = useRef(null); 
@@ -240,7 +240,7 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
                   <div className="series__cover">
                     <div className='thumb-wrapper'>
                       <img
-                      src={ imgSrc + movie.image.thumb }
+                      src={ movie.image.thumb }
                       alt={`Episode ${epIdx + 1}`} 
                       onError={(e) => {
                         e.target.src = 'img/series/2.jpg';
