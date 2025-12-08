@@ -245,7 +245,7 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
                       onError={(e) => {
                         e.target.src = 'img/series/2.jpg';
                       }}
-                      decoding='sync'/>
+                      loading="lazy"/>
                     </div>
                     <span>
                       {epIdx === currentEpisodeIdx ? 
