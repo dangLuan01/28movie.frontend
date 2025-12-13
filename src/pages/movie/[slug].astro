@@ -99,7 +99,7 @@ const jsonLd = JSON.stringify(
             <div class="col-12 col-xl-8">
               <!-- categories -->
               <div class="categories">
-                <h3 class="categories__title">Genres</h3>
+                <h3 class="categories__title">Thể loại</h3>
                 {movie.genres.map((genre:any) => (
                   <a href={`/genre/${genre.slug}`} class="categories__item">{genre.name}</a>
                 ))}
@@ -107,7 +107,7 @@ const jsonLd = JSON.stringify(
               <!-- end categories -->
               <!-- share -->
               <div class="share">
-                <h3 class="share__title">Share</h3>
+                <h3 class="share__title">Chia sẽ</h3>
                 <a href="#facebook" class="share__link share__link--fb"><svg width="9" height="17" viewBox="0 0 9 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5.56341 16.8197V8.65888H7.81615L8.11468 5.84663H5.56341L5.56724 4.43907C5.56724 3.70559 5.63693 3.31257 6.69042 3.31257H8.09873V0.5H5.84568C3.1394 0.5 2.18686 1.86425 2.18686 4.15848V5.84695H0.499939V8.6592H2.18686V16.8197H5.56341Z"/>
                   </svg>

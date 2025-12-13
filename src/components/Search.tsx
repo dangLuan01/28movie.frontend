@@ -45,7 +45,7 @@ export default function Search() {
       <input
         className="header__form-input"
         type="text"
-        placeholder="I'm looking for..."
+        placeholder="Tìm kiếm phim..."
         value={query}
         onChange={e => setQuery(e.target.value)}/>
       <button className="header__form-btn" type="button"  onClick={() => setIsOpen(true)} 
