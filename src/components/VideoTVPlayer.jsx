@@ -9,6 +9,9 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
   const hlsRef      = useRef(null);
   const plyrRef     = useRef(null); 
   const carouselRef = useRef(null);
+  const carouselElRef = useRef(null);
+
+  
 
   // Server và episode present
   const [currentServerIdx, setCurrentServerIdx] = useState(0);
@@ -20,11 +23,40 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
 
   // Initialize carousel
   useEffect(() => {
-    
-    if (typeof window !== 'undefined' && window.$) {
-      const $ = window.$;
-      carouselRef.current = $('.owl-carousel').owlCarousel({
-        mouseDrag:true,
+    let cancelled = false;
+
+    async function initOwl() {
+      if (!carouselElRef.current) return;
+
+      // 1) Load jquery + owl ngay tại đây (đảm bảo hard refresh vẫn có)
+      const jq = await import("jquery");
+      const $ = jq.default || jq;
+
+      // gán global để owl plugin attach đúng
+      window.$ = window.jQuery = $;
+
+      // load owl (nó sẽ attach vào $.fn.owlCarousel)
+      await import("owl.carousel");
+
+      if (cancelled) return;
+
+      const $el = $(carouselElRef.current);
+
+      // 2) Destroy sạch nếu đã init
+      if ($el.hasClass("owl-loaded")) {
+        $el.trigger("destroy.owl.carousel");
+        $el.removeClass("owl-loaded owl-hidden");
+        $el.find(".owl-stage-outer").children().unwrap();
+        $el.find(".owl-stage").children().unwrap();
+      }
+
+      // 3) Nếu chưa có item thì thôi (đợi episodes về)
+      const itemCount = $el.children().length;
+      if (!itemCount) return;
+
+      // 4) Init
+      $el.owlCarousel({
+        mouseDrag: true,
         touchDrag: true,
         loop: false,
         margin: 10,
@@ -33,17 +65,19 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
           0: { items: 3 },
           576: { items: 4 },
           768: { items: 5 },
-          1200: { items: 7 }
-        }
+          1200: { items: 7 },
+        },
       });
+
+      carouselRef.current = $el;
     }
 
+    initOwl();
+
     return () => {
-      if (carouselRef.current) {
-        carouselRef.current.trigger('destroy.owl.carousel');
-      }
+      cancelled = true;
     };
-  }, []);
+  }, [currentServerIdx, currentServer?.episodes?.length]);
 
   // Handle video player
   useEffect(() => {
@@ -142,11 +176,11 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
           controls: [
             'play-large',
             //'restart',
-            'rewind',
+            //'rewind',
             'play',
             'fast-forward',
             'progress',
-            'current-time',
+            //'current-time',
             'duration',
             'mute',
             'volume',
@@ -231,7 +265,7 @@ const VideoPlayer   = ({ movie, thumbnail }) => {
           </h3>
           
           <div className="section__carousel-wrap">
-            <div className="section__series owl-carousel">
+            <div className="section__series owl-carousel" ref={carouselElRef}>
               {currentServer?.episodes?.map((episode, epIdx) => (
                 <div 
                   key={epIdx} 

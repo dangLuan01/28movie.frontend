@@ -108,11 +108,11 @@ const VideoPlayer = ({ servers, thumbnail }) => {
           captions: { active: true, update: true, language: 'vi' },
           controls: [
             'play-large',
-            'rewind',
+            // 'rewind',
             'play',
             'fast-forward',
             'progress',
-            'current-time',
+            // 'current-time',
             'duration',
             'mute',
             'volume',
