@@ -39,7 +39,7 @@ export default function CatalogMovie({
   const [selectedGrade, setSelectedGrade] = useState<string>(initialGrade);
 
   const genreOptions = [
-    { value: "all", label: "All genres" },
+    { value: "all", label: "Tất cả thể loại" },
     ...genres.map((genre) => ({
       value: genre.slug,
       label: genre.name,
@@ -47,7 +47,7 @@ export default function CatalogMovie({
   ];
 
   const yearOptions = [
-    { value: "", label: "All the years" },
+    { value: "", label: "Tất cả năm" },
     { value: "2020-2029", label: "2020-30" },
     { value: "2010-2019", label: "2010-20" },
     { value: "2000-2009", label: "2000-10" }, 
@@ -173,7 +173,7 @@ export default function CatalogMovie({
                           (opt) => opt.value === selectedYear
                       )}
                       onChange={(option) => {
-                          const val = option?.value || "all";
+                          const val = option?.value || "";
                           setSelectedYear(val);
                           handleChange(selectedGenre, val, selectedGrade);
                       }}
@@ -184,11 +184,11 @@ export default function CatalogMovie({
               </div>
               <div className="slider-radio">
                 <input type="radio" name="grade" id="featured" checked={selectedGrade === "featured"} onChange={onGradeChange}/>
-                <label htmlFor="featured">Featured</label>
+                <label style={{width: '135px'}} htmlFor="featured">Mới cập nhật</label>
                 <input type="radio" name="grade" id="single" checked={selectedGrade === "single"} onChange={onGradeChange}/>
-                <label htmlFor="single">Movie</label>
+                <label htmlFor="single" style={{width: '70px'}}>Phim lẻ</label>
                 <input type="radio" name="grade" id="series" checked={selectedGrade === "series"} onChange={onGradeChange}/>
-                <label htmlFor="series">Series</label>
+                <label htmlFor="series" style={{width: '80px'}}>Phim bộ</label>
               </div>
             </div>
             <MovieList movies={movies} />
