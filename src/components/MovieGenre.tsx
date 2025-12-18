@@ -24,6 +24,7 @@ export default function MovieGenre({ slug }: MovieGenreProps) {
     const [, setLoading] = useState(false);
     //const [hasMore, setHasMore] = useState(true);
     const API_URL = import.meta.env.PUBLIC_API_GO_URL;
+    const DOMAIN = import.meta.env.PUBLIC_DOMAIN;
     const apiKey = import.meta.env.PUBLIC_API_KEY
 
     async function fetchMovies(currentPage: number, genreSlug: string) {
@@ -70,7 +71,7 @@ export default function MovieGenre({ slug }: MovieGenreProps) {
             <ul className="breadcrumb">
               <li className="breadcrumb__item"><a href="/">Home</a></li>
               <li className="breadcrumb__item">
-                <a href="/genre">Genre</a>
+                <a href="/genre">Thể loại</a>
               </li>
               <li className="breadcrumb__item breadcrumb__item--active">
                 {genre?.name}
@@ -88,7 +89,8 @@ export default function MovieGenre({ slug }: MovieGenreProps) {
                         {movies.map((movie:any) => (
                         <div key={movie.slug} className="col-6 col-sm-4 col-lg-3 col-xl-2">
                             <div className="card">
-                                <a href={movie.type == 'single' ? '/movie/' + movie.slug : '/tv-series/' + movie.slug} className="card__cover">
+                                
+                                <a href={ movie.type == 'single' ? DOMAIN + '/movie/' + movie.slug : DOMAIN + '/tv-series/' + movie.slug } className="card__cover">
                                     <img src={ movie.image.poster } alt={movie.origin_name} loading='lazy' decoding='auto'/>
                                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fillRule="evenodd" clipRule="evenodd" d="M11 1C16.5228 1 21 5.47716 21 11C21 16.5228 16.5228 21 11 21C5.47716 21 1 16.5228 1 11C1 5.47716 5.47716 1 11 1Z"
