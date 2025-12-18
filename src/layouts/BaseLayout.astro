@@ -69,6 +69,16 @@ const image = meta.image
 		<script type="application/ld+json" set:html={jsonLd} />
 		}
 		<!-- endSeoSchemaHoamePage -->
+
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-SVYELRKV40"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){window.dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-SVYELRKV40');
+		</script>
 	</head>
 	<body>
 		<!-- header (relative style) -->
