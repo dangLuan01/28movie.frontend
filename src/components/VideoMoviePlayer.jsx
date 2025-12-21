@@ -34,6 +34,66 @@ const VideoPlayer = ({ servers, thumbnail }) => {
       }
     }
 
+    async function setupSubtitles() {
+      if (!isStreamingApi(currentUrl)) return;
+
+      const uuid = getUuidFromHlsUrl(currentUrl);
+      if (!uuid) return;
+
+      const subs = await fetchSubtitles(uuid);
+      if (!subs.length) return;
+
+      video.querySelectorAll('track').forEach(t => t.remove());
+
+      subs.forEach((item, index) => {
+        const track = createTrack(item, index === 0);
+        video.appendChild(track);
+      });
+
+      // 🔥 refresh Plyr captions
+      plyrRef.current?.captions?.update();
+    }
+
+    function isStreamingApi(url) {
+      try {
+        return new URL(url).hostname === 'streamingapi.xoailac.top';
+      } catch {
+        return false;
+      }
+    }
+
+    function getUuidFromHlsUrl(url) {
+      try {
+        const u = new URL(url);
+        const parts = u.pathname.split('/');
+        
+        return parts[3] || '';
+      } catch {
+        return '';
+      }
+    }
+
+    async function fetchSubtitles(uuid) {
+      const res = await fetch(
+        `https://streamingapi.xoailac.top/streaming/subtitles/${uuid}`
+      );
+      const json = await res.json();
+      return json?.data?.[0] || [];
+    }
+
+    function createTrack(item, isDefault = false) {
+      const track = document.createElement('track');
+      track.kind = 'captions';
+      track.label = item.languages;
+      track.srclang = item.languages.toLowerCase();
+      track.src =
+        `https://streamingapi.xoailac.top/streaming/subtitles/` +
+        `${item.video_uuid}/${item.uuid}`;
+      track.default = isDefault;
+      return track;
+    }
+
+
     // gắn listener
     video.addEventListener("timeupdate", onTimeUpdate);
     import('hls.js').then(({ default: Hls }) => {
@@ -51,23 +111,15 @@ const VideoPlayer = ({ servers, thumbnail }) => {
           lowLatencyMode: true,
           startPosition: -1,
         });
+
         hls.loadSource(currentUrl);
         hls.attachMedia(video);
         hlsRef.current = hls;
+        video.addEventListener('loadedmetadata', setupSubtitles);
 
         const skipConfig = {
           // "https://vip.opstream90.com": [
           //   { start: 587, end: 632 },
-          //   { start: 2432, end: 2466 },
-          //   { start: 4862, end: 4897 },
-          // ],
-          // "https://vip.opstream10.com": [
-          //   { start: 596, end: 632 },
-          //   { start: 2432, end: 2466 },
-          //   { start: 4862, end: 4897 },
-          // ],
-          //  "https://vip.opstream13.com": [
-          //   { start: 596, end: 632 },
           //   { start: 2432, end: 2466 },
           //   { start: 4862, end: 4897 },
           // ],
@@ -98,12 +150,13 @@ const VideoPlayer = ({ servers, thumbnail }) => {
 
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = currentUrl;
+        video.addEventListener('loadedmetadata', setupSubtitles);
       }
       
       if (!plyrRef.current) {
         plyrRef.current = new Plyr(video, {
-          settings: ['captions', 'quality', 'speed', 'server'],
-          keyboard: { focused: true, global: true }, 
+          settings: ['captions', 'quality', 'speed'],
+          keyboard: { focused: true, global: true },
           tooltips: { controls: true, seek: true },
           captions: { active: true, update: true, language: 'vi' },
           controls: [
@@ -129,6 +182,7 @@ const VideoPlayer = ({ servers, thumbnail }) => {
       isMounted = false;
       if (video) {
         video.removeEventListener("timeupdate", onTimeUpdate);
+        video.removeEventListener('loadedmetadata', setupSubtitles);
       }
       if (hlsRef.current) {
         hlsRef.current.destroy();
