@@ -9,93 +9,220 @@ const VideoPlayer = ({ servers, thumbnail }) => {
   const [currentUrl, setCurrentUrl] = useState(servers[0]?.episodes[0]?.hls || '');
   const [currentServer, setCurrentServer] = useState(servers[0]?.name || '');
 
+  // useEffect(() => {
+  //   let isMounted = true;
+  //   const video = videoRef.current;
+  //   if (!video || !currentUrl) return;
+
+  //   if (hlsRef.current) {
+  //     hlsRef.current.destroy();
+  //     hlsRef.current = null;
+  //   }
+
+  //   const skipRangesRef = { current: [] };
+
+  //   function onTimeUpdate() {
+  //     const skipRanges = skipRangesRef.current;
+  //     if (!skipRanges.length) return;
+  //     const current = video.currentTime;
+  //     for (const range of skipRanges) {
+  //       if (current >= range.start && current < range.end) {
+      
+  //         video.currentTime = range.end;
+  //         break;
+  //       }
+  //     }
+  //   }
+
+  //   async function setupSubtitles() {
+  //     if (!isStreamingApi(currentUrl)) return;
+
+  //     const uuid = getUuidFromHlsUrl(currentUrl);
+  //     if (!uuid) return;
+
+  //     const subs = await fetchSubtitles(uuid);
+  //     if (!subs.length) return;
+
+  //     video.querySelectorAll('track').forEach(t => t.remove());
+
+  //     subs.forEach((item, index) => {
+  //       const track = createTrack(item, index === 0);
+  //       video.appendChild(track);
+  //     });
+
+  //     // 🔥 refresh Plyr captions
+  //     plyrRef.current?.captions?.update();
+  //   }
+
+  //   function isStreamingApi(url) {
+  //     try {
+  //       return new URL(url).hostname === 'streamingapi.xoailac.top';
+  //     } catch {
+  //       return false;
+  //     }
+  //   }
+
+  //   function getUuidFromHlsUrl(url) {
+  //     try {
+  //       const u = new URL(url);
+  //       const parts = u.pathname.split('/');
+        
+  //       return parts[3] || '';
+  //     } catch {
+  //       return '';
+  //     }
+  //   }
+
+  //   function isM3U8(url = '') {
+  //     return /\.m3u8(\?.*)?$/.test(url);
+  //   }
+
+  //   function isEmbed(url = '') {
+  //     return !isM3U8(url);
+  //   }
+
+
+  //   async function fetchSubtitles(uuid) {
+  //     const res = await fetch(
+  //       `https://streamingapi.xoailac.top/streaming/subtitles/${uuid}`
+  //     );
+  //     const json = await res.json();
+  //     return json?.data?.[0] || [];
+  //   }
+
+  //   function createTrack(item, isDefault = false) {
+  //     const track = document.createElement('track');
+  //     track.kind = 'captions';
+  //     track.label = item.languages;
+  //     track.srclang = item.languages.toLowerCase();
+  //     track.src =
+  //       `https://streamingapi.xoailac.top/streaming/subtitles/` +
+  //       `${item.video_uuid}/${item.uuid}`;
+  //     track.default = isDefault;
+  //     return track;
+  //   }
+
+
+  //   // gắn listener
+  //   video.addEventListener("timeupdate", onTimeUpdate);
+  //   import('hls.js').then(({ default: Hls }) => {
+  //     if (!isMounted) return;
+
+  //     if (Hls.isSupported()) {
+  //       const hls = new Hls({
+  //         renderTextTracksNatively: true,
+  //         maxBufferLength: 30,
+  //         maxMaxBufferLength: 60,
+  //         nudgeMaxRetry: 5,
+  //         fragLoadingTimeOut: 20000,
+  //         fragLoadingMaxRetry: 6,
+  //         enableWorker: true,
+  //         lowLatencyMode: true,
+  //         startPosition: -1,
+  //       });
+
+  //       hls.loadSource(currentUrl);
+  //       hls.attachMedia(video);
+  //       hlsRef.current = hls;
+  //       video.addEventListener('loadedmetadata', setupSubtitles);
+
+  //       const skipConfig = {
+  //         // "https://vip.opstream90.com": [
+  //         //   { start: 587, end: 632 },
+  //         //   { start: 2432, end: 2466 },
+  //         //   { start: 4862, end: 4897 },
+  //         // ],
+  //       };
+
+  //       hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
+  //         const domain = new URL(data.levels[0].url[0]).origin;
+  //         skipRangesRef.current = skipConfig[domain] || [];
+  //       });
+
+  //       video.addEventListener('loadedmetadata', () => {
+  //         if ('mediaSession' in navigator) {
+  //           navigator.mediaSession.metadata = new MediaMetadata({
+  //             artwork: [
+  //               {
+  //                 src: thumbnail,
+  //                 type: 'image/jpeg',
+  //               },
+  //             ],
+  //           });
+  //         }
+  //       });
+
+  //       video.addEventListener('seeking', () => {
+  //         const currentTime = video.currentTime;
+  //         hls.startLoad(currentTime);
+  //       });
+
+  //     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  //       video.src = currentUrl;
+  //       video.addEventListener('loadedmetadata', setupSubtitles);
+  //     }
+      
+  //     if (!plyrRef.current) {
+  //       plyrRef.current = new Plyr(video, {
+  //         settings: ['captions', 'quality', 'speed'],
+  //         keyboard: { focused: true, global: true },
+  //         tooltips: { controls: true, seek: true },
+  //         captions: { active: true, update: true, language: 'vi' },
+  //         controls: [
+  //           'play-large',
+  //           // 'rewind',
+  //           'play',
+  //           'fast-forward',
+  //           'progress',
+  //           // 'current-time',
+  //           'duration',
+  //           'mute',
+  //           'volume',
+  //           'captions',
+  //           'settings',
+  //           //'pip',
+  //           'fullscreen',
+  //         ],
+  //       });
+  //     }
+  //   });
+
+  //   return () => {
+  //     isMounted = false;
+  //     if (video) {
+  //       video.removeEventListener("timeupdate", onTimeUpdate);
+  //       video.removeEventListener('loadedmetadata', setupSubtitles);
+  //     }
+  //     if (hlsRef.current) {
+  //       hlsRef.current.destroy();
+  //       hlsRef.current = null;
+  //     }
+  //   };
+  // }, [currentUrl]);
+  function isM3U8(url = '') {
+    return /\.m3u8(\?.*)?$/.test(url);
+  }
+
+  function isEmbed(url = '') {
+    return !isM3U8(url);
+  }
+
   useEffect(() => {
+    if (!currentUrl || !isM3U8(currentUrl)) return;
+
     let isMounted = true;
     const video = videoRef.current;
-    if (!video || !currentUrl) return;
+    if (!video) return;
 
     if (hlsRef.current) {
       hlsRef.current.destroy();
       hlsRef.current = null;
     }
 
-    const skipRangesRef = { current: [] };
+    function onTimeUpdate() {}
 
-    function onTimeUpdate() {
-      const skipRanges = skipRangesRef.current;
-      if (!skipRanges.length) return;
-      const current = video.currentTime;
-      for (const range of skipRanges) {
-        if (current >= range.start && current < range.end) {
-      
-          video.currentTime = range.end;
-          break;
-        }
-      }
-    }
-
-    async function setupSubtitles() {
-      if (!isStreamingApi(currentUrl)) return;
-
-      const uuid = getUuidFromHlsUrl(currentUrl);
-      if (!uuid) return;
-
-      const subs = await fetchSubtitles(uuid);
-      if (!subs.length) return;
-
-      video.querySelectorAll('track').forEach(t => t.remove());
-
-      subs.forEach((item, index) => {
-        const track = createTrack(item, index === 0);
-        video.appendChild(track);
-      });
-
-      // 🔥 refresh Plyr captions
-      plyrRef.current?.captions?.update();
-    }
-
-    function isStreamingApi(url) {
-      try {
-        return new URL(url).hostname === 'streamingapi.xoailac.top';
-      } catch {
-        return false;
-      }
-    }
-
-    function getUuidFromHlsUrl(url) {
-      try {
-        const u = new URL(url);
-        const parts = u.pathname.split('/');
-        
-        return parts[3] || '';
-      } catch {
-        return '';
-      }
-    }
-
-    async function fetchSubtitles(uuid) {
-      const res = await fetch(
-        `https://streamingapi.xoailac.top/streaming/subtitles/${uuid}`
-      );
-      const json = await res.json();
-      return json?.data?.[0] || [];
-    }
-
-    function createTrack(item, isDefault = false) {
-      const track = document.createElement('track');
-      track.kind = 'captions';
-      track.label = item.languages;
-      track.srclang = item.languages.toLowerCase();
-      track.src =
-        `https://streamingapi.xoailac.top/streaming/subtitles/` +
-        `${item.video_uuid}/${item.uuid}`;
-      track.default = isDefault;
-      return track;
-    }
-
-
-    // gắn listener
     video.addEventListener("timeupdate", onTimeUpdate);
+
     import('hls.js').then(({ default: Hls }) => {
       if (!isMounted) return;
 
@@ -103,75 +230,27 @@ const VideoPlayer = ({ servers, thumbnail }) => {
         const hls = new Hls({
           renderTextTracksNatively: true,
           maxBufferLength: 30,
-          maxMaxBufferLength: 60,
-          nudgeMaxRetry: 5,
-          fragLoadingTimeOut: 20000,
-          fragLoadingMaxRetry: 6,
           enableWorker: true,
-          lowLatencyMode: true,
-          startPosition: -1,
         });
 
         hls.loadSource(currentUrl);
         hls.attachMedia(video);
         hlsRef.current = hls;
-        video.addEventListener('loadedmetadata', setupSubtitles);
-
-        const skipConfig = {
-          // "https://vip.opstream90.com": [
-          //   { start: 587, end: 632 },
-          //   { start: 2432, end: 2466 },
-          //   { start: 4862, end: 4897 },
-          // ],
-        };
-
-        hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
-          const domain = new URL(data.levels[0].url[0]).origin;
-          skipRangesRef.current = skipConfig[domain] || [];
-        });
-
-        video.addEventListener('loadedmetadata', () => {
-          if ('mediaSession' in navigator) {
-            navigator.mediaSession.metadata = new MediaMetadata({
-              artwork: [
-                {
-                  src: thumbnail,
-                  type: 'image/jpeg',
-                },
-              ],
-            });
-          }
-        });
-
-        video.addEventListener('seeking', () => {
-          const currentTime = video.currentTime;
-          hls.startLoad(currentTime);
-        });
-
       } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
         video.src = currentUrl;
-        video.addEventListener('loadedmetadata', setupSubtitles);
       }
-      
+
       if (!plyrRef.current) {
         plyrRef.current = new Plyr(video, {
-          settings: ['captions', 'quality', 'speed'],
-          keyboard: { focused: true, global: true },
-          tooltips: { controls: true, seek: true },
-          captions: { active: true, update: true, language: 'vi' },
+          captions: { active: true, update: true },
           controls: [
-            'play-large',
-            // 'rewind',
             'play',
-            'fast-forward',
             'progress',
-            // 'current-time',
             'duration',
             'mute',
             'volume',
             'captions',
             'settings',
-            //'pip',
             'fullscreen',
           ],
         });
@@ -180,10 +259,8 @@ const VideoPlayer = ({ servers, thumbnail }) => {
 
     return () => {
       isMounted = false;
-      if (video) {
-        video.removeEventListener("timeupdate", onTimeUpdate);
-        video.removeEventListener('loadedmetadata', setupSubtitles);
-      }
+      video.removeEventListener("timeupdate", onTimeUpdate);
+
       if (hlsRef.current) {
         hlsRef.current.destroy();
         hlsRef.current = null;
@@ -192,7 +269,31 @@ const VideoPlayer = ({ servers, thumbnail }) => {
   }, [currentUrl]);
   return (
     <div className="col-12 col-xl-8">
-      <video ref={videoRef} id="player" controls playsInline poster={thumbnail} crossOrigin="anonymous" height={480} width={720}/>
+      {/* <video ref={videoRef} id="player" controls playsInline poster={thumbnail} crossOrigin="anonymous" height={480} width={720}/> */}
+      {isM3U8(currentUrl) ? (
+        <video
+          ref={videoRef}
+          id="player"
+          controls
+          playsInline
+          poster={thumbnail}
+          crossOrigin="anonymous"
+          height={480}
+          width={720}
+        />
+      ) : (
+        <div className="ratio ratio-16x9">
+          <iframe
+            src={currentUrl}
+            title="Embed Player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            height={400}
+            width={720}
+          />
+        </div>
+      )}
+
       <div className="article__actions article__actions--details" style={{ marginTop: 10 }}>
         <div className="">
           {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

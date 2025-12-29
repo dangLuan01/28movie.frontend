@@ -1,7 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { Image } from 'astro:assets';
-import avatar from "../../images/avatar.svg";
 import VideoPlayer from "../../components/VideoMoviePlayer";
 const { slug }  = Astro.params;
 const domainApi = import.meta.env.PUBLIC_API_GO_URL;
@@ -49,7 +47,7 @@ const jsonLd = JSON.stringify(
   }
 );
 ---
-<BaseLayout title={movie.name +' ('+ movie.origin_name +')' +' - Vietsub ('+ movie.release_date +')'}
+<BaseLayout title={movie.name +' ('+ movie.origin_name +')' +' - Vietsub [Demo/Trailer] ('+ movie.release_date +')'}
     meta={{ 
       description: movie.name + ' ('+ movie.origin_name +')' +': ' + movie.content,
       image: movie.image.thumb
